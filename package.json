@@ -1,0 +1,22 @@
+{
+  "name": "konn",
+  "version": "1.0.0",
+  "description": "Create and manage a single page for all your links",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "Bakhriddin Chorshanbiev",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "@vitejs/plugin-react": "^5.0.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9"
+  }
+}
