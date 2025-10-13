@@ -24,23 +24,9 @@ export default [
       },
     },
     rules: {
-      "prettier/prettier": [
-        "error",
-        {
-          semi: true,
-          singleQuote: false,
-          trailingComma: "es5",
-        },
-      ],
-
+      "prettier/prettier": "error",
       "import/no-default-export": "error",
-
-      "unicorn/filename-case": [
-        "error",
-        {
-          case: "kebabCase",
-        },
-      ],
+      "unicorn/filename-case": ["error", { case: "kebabCase" }],
     },
   },
 ];
