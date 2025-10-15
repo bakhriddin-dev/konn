@@ -1,1 +1,1 @@
-export type Language = "uz" | "en";
+export type Language = "uz" | "en" | "ru";
