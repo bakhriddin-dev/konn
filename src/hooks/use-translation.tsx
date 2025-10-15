@@ -1,9 +1,8 @@
 import { StorageKeys } from "@/constants";
 import { locales } from "@/constants/locales";
+import { Language } from "@/types";
 import { Storage } from "@/utils/storage";
 import { useState } from "react";
-
-type Language = "uz" | "en";
 
 export const useTranslation = () => {
   const [currentLanguage, setCurrentLanguage] = useState(Storage.get(StorageKeys.lang) || "uz");
@@ -15,5 +14,5 @@ export const useTranslation = () => {
     Storage.set(StorageKeys.lang, language);
   };
 
-  return { t, setLanguage };
+  return { t, setLanguage, currentLanguage };
 };

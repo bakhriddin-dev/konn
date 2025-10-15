@@ -1,3 +1,9 @@
+import { Navbar } from "./components/navbar";
+
 export const Landing = () => {
-  return <div>Landing</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };

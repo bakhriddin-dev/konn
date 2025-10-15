@@ -1,6 +1,11 @@
 import { RouterProvider } from "react-router/dom";
 import { router } from "./router";
+import { ThemeProvider } from "./hooks/use-theme";
 
 export const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />;
+    </ThemeProvider>
+  );
 };
