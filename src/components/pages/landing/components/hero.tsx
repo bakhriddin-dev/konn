@@ -19,24 +19,8 @@ export const Hero = () => {
   return (
     <section className="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{ duration: 20, repeat: Infinity }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-green-500/20 to-cyan-500/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            rotate: [0, -90, 0],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{ duration: 25, repeat: Infinity }}
-          className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-green-500/20 to-cyan-500/20 rounded-full blur-3xl"
-        />
+        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-green-500/20 to-cyan-500/20 rounded-full blur-2xl opacity-10" />
+        <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-green-500/20 to-cyan-500/20 rounded-full blur-2xl opacity-10" />
       </div>
 
       <div className="md:px-4 container mx-auto relative z-10">
@@ -56,7 +40,7 @@ export const Hero = () => {
                 transition={{ delay: 0.2 }}
                 className="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20"
               >
-                <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text font-semibold text-sm text-transparent">
                   #1 Bio'dagi havola platformasi
                 </span>
               </motion.div>
@@ -132,7 +116,7 @@ export const Hero = () => {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-3xl z-20"></div>
 
                     {/* Screen content */}
-                    <div className="w-full h-full overflow-y-auto scrollbar-hide px-4 py-6 md:p-6 pt-12">
+                    <div className="w-full h-full overflow-y-auto scrollbar-hide px-4 py-6 md:p-6 !pt-12">
                       {/* Profile section */}
                       <motion.div
                         initial={{ scale: 0.8, opacity: 0 }}
