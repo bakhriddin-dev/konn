@@ -3,17 +3,19 @@ import { motion } from "framer-motion";
 import { ArrowRight, Instagram, Youtube, Twitter, Globe, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useTranslation } from "@/hooks/use-translation";
 
 export const Hero = () => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [hoveredLink, setHoveredLink] = useState<number | null>(null);
 
   const mockLinks = [
-    { icon: Youtube, label: "YouTube Kanal", color: "from-red-500 to-red-600" },
-    { icon: Instagram, label: "Instagram Sahifa", color: "from-purple-500 to-pink-500" },
+    { icon: Youtube, label: t("hero.youtube"), color: "from-red-500 to-red-600" },
+    { icon: Instagram, label: t("hero.instagram"), color: "from-purple-500 to-pink-500" },
     { icon: Twitter, label: "Twitter/X", color: "from-blue-400 to-blue-500" },
     { icon: Music, label: "Spotify", color: "from-green-500 to-green-600" },
-    { icon: Globe, label: "Shaxsiy Saytim", color: "from-orange-500 to-orange-600" },
+    { icon: Globe, label: t("hero.site"), color: "from-orange-500 to-orange-600" },
   ];
 
   return (
@@ -41,18 +43,15 @@ export const Hero = () => {
                 className="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20"
               >
                 <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text font-semibold text-sm text-transparent">
-                  #1 Bio'dagi havola platformasi
+                  #1 {t("hero.badge")}
                 </span>
               </motion.div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-                Barcha havolalaringiz bir joyda
+                {t("hero.title")}
               </h1>
 
-              <p className="text-xl text-muted-foreground max-w-xl">
-                Konn.uz bilan ijtimoiy tarmoqlar, saytlar va kontentlaringizni bitta sahifada
-                jamlang!
-              </p>
+              <p className="text-xl text-muted-foreground max-w-xl">{t("hero.subtitle")}</p>
             </div>
 
             <div className="space-y-4 max-w-md">
@@ -64,7 +63,7 @@ export const Hero = () => {
                     <Input
                       type="text"
                       maxLength={50}
-                      placeholder="Foydalanuvchi nomingizni kiriting"
+                      placeholder={t("hero.input")}
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       className="text-xs md:text-sm border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-2"
@@ -77,7 +76,7 @@ export const Hero = () => {
                 size="lg"
                 className="w-full gap-2 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 group"
               >
-                Bepul boshlash
+                {t("hero.button")}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
@@ -93,7 +92,7 @@ export const Hero = () => {
               </div>
               <div>
                 <div className="font-semibold">100+</div>
-                <div className="text-sm text-muted-foreground">Faol foydalanuvchilar</div>
+                <div className="text-sm text-muted-foreground">{t("hero.activeusers")}</div>
               </div>
             </div>
           </motion.div>
@@ -128,7 +127,7 @@ export const Hero = () => {
                           <span className="text-3xl">👨‍💻</span>
                         </div>
                         <h3 className="text-white font-semibold mb-1">@konn</h3>
-                        <p className="text-gray-400 text-sm">Content Yaratuvchi & Dizayner</p>
+                        <p className="text-gray-400 text-sm">{t("hero.profile")}</p>
                       </motion.div>
 
                       {/* Links */}
@@ -174,7 +173,7 @@ export const Hero = () => {
                 >
                   <div className="text-white text-center">
                     <div className="text-2xl font-bold">1K+</div>
-                    <div className="text-xs opacity-90">Jonli ko'rishlar</div>
+                    <div className="text-xs opacity-90">{t("hero.live")}</div>
                   </div>
                 </motion.div>
 

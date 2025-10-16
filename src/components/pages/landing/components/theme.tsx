@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function Theme() {
+  const { t } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState(0);
 
   const themes = [
@@ -54,10 +56,8 @@ export function Theme() {
           viewport={{ once: true }}
           className="text-center mb-16 space-y-4"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">O'z stilingizni yarating</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Brend identifikatsiyangizga mos keladigan mavzularni tanlang
-          </p>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">{t("theme.title")}</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t("theme.subtitle")}</p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -91,10 +91,10 @@ export function Theme() {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">{theme.name}</h3>
                       <p className="text-sm text-muted-foreground">
-                        {index === 0 && "Sodda va zamonaviy"}
-                        {index === 1 && "Ranglar bilan to'ldirilgan"}
-                        {index === 2 && "Professional qorong'i mavzu"}
-                        {index === 3 && "Yorqin neon effektlar"}
+                        {index === 0 && t("theme.minimal")}
+                        {index === 1 && t("theme.gradient")}
+                        {index === 2 && t("theme.dark")}
+                        {index === 3 && t("theme.neon")}
                       </p>
                     </div>
                   </div>
@@ -138,10 +138,10 @@ export function Theme() {
                           className={`w-20 h-20 rounded-full ${themes[selectedTheme].accent} mx-auto mb-3`}
                         ></div>
                         <h3 className={`font-semibold mb-1 ${themes[selectedTheme].text}`}>
-                          @foydalanuvchi_nomi
+                          {t("theme.username")}
                         </h3>
                         <p className={`text-sm ${themes[selectedTheme].text} opacity-70`}>
-                          Bio matni
+                          {t("theme.bio")}
                         </p>
                       </div>
 

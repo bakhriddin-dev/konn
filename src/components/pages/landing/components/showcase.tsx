@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/hooks/use-translation";
 import { motion } from "framer-motion";
 import { ExternalLink, Eye } from "lucide-react";
 
 export function Showcase() {
+  const { t } = useTranslation();
   const profiles = [
     {
       name: "Dilnoza Karimova",
       username: "@dilnoza.style",
-      category: "Мода и лайфстайл",
+      category: t("showcase.description_1"),
       avatar: "👗",
       gradient: "from-pink-500 via-rose-500 to-red-500",
       views: "334",
@@ -15,7 +17,7 @@ export function Showcase() {
     {
       name: "Rustam Bek",
       username: "@rustamtech",
-      category: "Технологии и гаджеты",
+      category: t("showcase.description_2"),
       avatar: "💻",
       gradient: "from-blue-500 via-indigo-500 to-cyan-500",
       views: "678",
@@ -23,7 +25,7 @@ export function Showcase() {
     {
       name: "Anastasia Volkova",
       username: "@nastiacooks",
-      category: "Еда и рецепты",
+      category: t("showcase.description_3"),
       avatar: "🍰",
       gradient: "from-orange-500 via-amber-500 to-yellow-500",
       views: "2208",
@@ -31,7 +33,7 @@ export function Showcase() {
     {
       name: "Javohir Fit",
       username: "@javohirfit",
-      category: "Фитнес и мотивация",
+      category: t("showcase.description_4"),
       avatar: "🏋️‍♂️",
       gradient: "from-green-500 via-emerald-500 to-teal-500",
       views: "1145",
@@ -39,7 +41,7 @@ export function Showcase() {
     {
       name: "Elena Petrova",
       username: "@elena.music",
-      category: "Музыка и творчество",
+      category: t("showcase.description_5"),
       avatar: "🎶",
       gradient: "from-purple-500 via-violet-500 to-indigo-500",
       views: "601",
@@ -47,7 +49,7 @@ export function Showcase() {
     {
       name: "Azizbek Nur",
       username: "@azizshoots",
-      category: "Фотография и путешествия",
+      category: t("showcase.description_6"),
       avatar: "📷",
       gradient: "from-cyan-500 via-blue-500 to-indigo-500",
       views: "214",
@@ -56,7 +58,6 @@ export function Showcase() {
 
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent"></div>
 
       <div className="container mx-auto relative z-10">
@@ -67,11 +68,9 @@ export function Showcase() {
           viewport={{ once: true }}
           className="text-center mb-16 space-y-4"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
-            Mijozlarimiz Konn.uz dan foydalanmoqda
-          </h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">{t("showcase.title")}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Demo profillar orqali Konn.uz imkoniyatlarini ko'rib chiqing.
+            {t("showcase.subtitle")}
           </p>
         </motion.div>
 
@@ -125,7 +124,7 @@ export function Showcase() {
                     variant="outline"
                     className="w-full group-hover:bg-gradient-to-r group-hover:from-green-500 group-cyan:to-pink-500 group-hover:border-transparent group-hover:text-white transition-all"
                   >
-                    Profilni ko'rish
+                    {t("showcase.button")}
                     <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </div>

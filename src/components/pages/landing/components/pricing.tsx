@@ -1,19 +1,22 @@
 import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function Pricing() {
+  const { t } = useTranslation();
+
   const plans = [
     {
-      name: "Bepul",
+      name: t("pricing.plan"),
       price: "0",
       features: [
-        { text: "Cheksiz havolalar", included: true },
-        { text: "Asosiy sozlamalar", included: true },
-        { text: "Tahlil", included: true },
-        { text: "10 dan ortiq mavzular", included: true },
-        { text: "Profilga avatar qo'yish", included: true },
-        { text: "Mobil qurilmaga mos dizayn", included: true },
+        { text: t("pricing.feature1"), included: true },
+        { text: t("pricing.feature2"), included: true },
+        { text: t("pricing.feature3"), included: true },
+        { text: t("pricing.feature4"), included: true },
+        { text: t("pricing.feature5"), included: true },
+        { text: t("pricing.feature6"), included: true },
       ],
       highlighted: true,
     },
@@ -29,10 +32,8 @@ export function Pricing() {
           viewport={{ once: true }}
           className="text-center mb-16 space-y-4"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Rejalar va narxlar</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            O'zingizga mos keladigan rejani tanlang
-          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">{t("pricing.title")}</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("pricing.subtitle")}</p>
         </motion.div>
 
         <div className="max-w-sm mx-auto">
@@ -54,15 +55,17 @@ export function Pricing() {
               >
                 {plan.highlighted && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-green-500 to-cyan-500 rounded-full text-sm">
-                    Mashhur
+                    {t("pricing.favorite")}
                   </div>
                 )}
 
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-4">{plan.name}</h3>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-2xl font-bold">{plan.price} so'm</span>
-                    <span className="text-muted-foreground">/oyiga</span>
+                    <span className="text-2xl font-bold">
+                      {plan.price} {t("pricing.sum")}
+                    </span>
+                    <span className="text-muted-foreground">/{t("pricing.month")}</span>
                   </div>
                 </div>
 
@@ -96,7 +99,7 @@ export function Pricing() {
                   variant={plan.highlighted ? "default" : "outline"}
                   size="lg"
                 >
-                  Rejani tanlash
+                  {t("pricing.button")}
                 </Button>
               </div>
             </motion.div>

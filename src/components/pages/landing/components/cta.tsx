@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/hooks/use-translation";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export function CTA() {
+  const { t } = useTranslation();
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
@@ -35,17 +37,17 @@ export function CTA() {
                 </div>
               </motion.div>
 
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-                Bugun Konn.uz da profilingizni yarating
-              </h2>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">{t("cta.title")}</h2>
 
-              <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-                Bir daqiqada bepul sahifangizni yarating va havolalaringizni ulashishni boshlang
-              </p>
+              <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">{t("cta.subtitle")}</p>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="max-w-max mx-auto"
+              >
                 <Button size="lg" className="bg-white text-black hover:bg-white/90 gap-2 group">
-                  Hoziroq boshlash
+                  {t("cta.button")}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.div>

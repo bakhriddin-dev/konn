@@ -1,39 +1,37 @@
-import { motion } from "framer-motion";
-import { Github, Twitter, Instagram, Linkedin } from "lucide-react";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function Footer() {
+  const { t } = useTranslation();
+
   const footerLinks = [
     {
-      title: "Mahsulot",
+      title: t("footer.product"),
       links: [
-        { label: "Xususiyatlar", href: "#" },
-        { label: "Narxlar", href: "#" },
-        { label: "Haqida", href: "#" },
+        { label: t("footer.product1"), href: "#" },
+        { label: t("footer.product2"), href: "#" },
+        { label: t("footer.product3"), href: "#" },
       ],
     },
     {
-      title: "Kompaniya",
+      title: t("footer.company"),
       links: [
-        { label: "Biz haqimizda", href: "#" },
-        { label: "Aloqa", href: "#" },
+        { label: t("footer.company1"), href: "#" },
+        { label: t("footer.company2"), href: "#" },
       ],
     },
     {
-      title: "Xususiy",
+      title: t("footer.privacy"),
       links: [
-        { label: "Maxfiylik", href: "#" },
-        { label: "Shartlar", href: "#" },
-        { label: "Cookie", href: "#" },
+        { label: t("footer.privacy1"), href: "#" },
+        { label: t("footer.privacy2"), href: "#" },
+        { label: t("footer.privacy3"), href: "#" },
       ],
     },
   ];
 
-  const socialLinks = [
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Github, href: "#", label: "Github" },
-  ];
+  // const socialLinks = [
+  //   { icon: Instagram, href: "#", label: "Instagram" },
+  // ];
 
   return (
     <footer className="border-t border-border bg-secondary/20">
@@ -47,9 +45,9 @@ export function Footer() {
               </div>
               <span className="text-xl font-bold">Konn.uz</span>
             </div>
-            <p className="text-muted-foreground mb-6 max-w-sm">Barcha havolalaringizni bir joyda</p>
+            <p className="text-muted-foreground mb-6 max-w-sm">{t("footer.title")}</p>
             <div className="flex items-center gap-3">
-              {socialLinks.map((social, index) => (
+              {/* {socialLinks.map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
@@ -60,7 +58,7 @@ export function Footer() {
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
-              ))}
+              ))} */}
             </div>
           </div>
 
@@ -85,7 +83,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-border text-center text-muted-foreground">
-          <p>© 2025 Konn.uz. Barcha huquqlar himoyalangan.</p>
+          <p>{t("footer.reserved")}</p>
         </div>
       </div>
     </footer>

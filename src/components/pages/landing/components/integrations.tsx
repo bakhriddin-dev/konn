@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/use-translation";
 import { motion } from "framer-motion";
 import {
   Instagram,
@@ -15,6 +16,8 @@ import {
 } from "lucide-react";
 
 export function Integrations() {
+  const { t } = useTranslation();
+
   const integrations = [
     { icon: Instagram, name: "Instagram", color: "from-purple-500 to-pink-500" },
     { icon: Youtube, name: "YouTube", color: "from-red-500 to-red-600" },
@@ -40,11 +43,9 @@ export function Integrations() {
           viewport={{ once: true }}
           className="text-center mb-16 space-y-4"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
-            Barcha platformalar bilan integratsiya
-          </h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">{t("integrations.title")}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Sevimli ilovalaringiz va xizmatlaringizni ulang
+            {t("integrations.subtitle")}
           </p>
         </motion.div>
 
@@ -84,7 +85,7 @@ export function Integrations() {
           className="text-center mt-12"
         >
           <div className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20">
-            <span className="text-muted-foreground">50+ boshqa integratsiyalar</span>
+            <span className="text-muted-foreground">50+ {t("integrations.button")}</span>
           </div>
         </motion.div>
       </div>

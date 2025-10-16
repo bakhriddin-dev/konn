@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/use-translation";
 import { motion } from "framer-motion";
 import { TrendingUp, Eye, MousePointerClick, BarChart3 } from "lucide-react";
 import {
@@ -11,49 +12,51 @@ import {
 } from "recharts";
 
 export function Analytics() {
+  const { t } = useTranslation();
+
   const chartData = [
-    { name: "Dush", "ko'rishlar": 400, kliklar: 240 },
-    { name: "Sesh", "ko'rishlar": 300, kliklar: 139 },
-    { name: "Chor", "ko'rishlar": 520, kliklar: 380 },
-    { name: "Pay", "ko'rishlar": 278, kliklar: 390 },
-    { name: "Jum", "ko'rishlar": 489, kliklar: 480 },
-    { name: "Shan", "ko'rishlar": 639, kliklar: 500 },
-    { name: "Yak", "ko'rishlar": 548, kliklar: 410 },
+    { name: t("analytics.dush"), [t("analytics.views")]: 400, [t("analytics.clickschart")]: 240 },
+    { name: t("analytics.sesh"), [t("analytics.views")]: 300, [t("analytics.clickschart")]: 139 },
+    { name: t("analytics.chor"), [t("analytics.views")]: 520, [t("analytics.clickschart")]: 380 },
+    { name: t("analytics.pay"), [t("analytics.views")]: 278, [t("analytics.clickschart")]: 390 },
+    { name: t("analytics.jum"), [t("analytics.views")]: 489, [t("analytics.clickschart")]: 480 },
+    { name: t("analytics.shan"), [t("analytics.views")]: 639, [t("analytics.clickschart")]: 500 },
+    { name: t("analytics.yak"), [t("analytics.views")]: 548, [t("analytics.clickschart")]: 410 },
   ];
 
   const linkStats = [
-    { name: "YouTube Kanal", clicks: 1234, percentage: 35 },
-    { name: "Instagram Profil", clicks: 987, percentage: 28 },
-    { name: "Sayt", clicks: 756, percentage: 21 },
+    { name: t("analytics.youtube"), clicks: 1234, percentage: 35 },
+    { name: t("analytics.instagram"), clicks: 987, percentage: 28 },
+    { name: t("analytics.site"), clicks: 756, percentage: 21 },
     { name: "Twitter", clicks: 567, percentage: 16 },
   ];
 
   const stats = [
     {
-      label: "Jami kliklar",
+      label: t("analytics.allclicks"),
       value: "12.5K",
       change: "+12.5%",
       icon: MousePointerClick,
       color: "from-blue-500 to-cyan-500",
     },
     {
-      label: "Jami ko'rishlar",
+      label: t("analytics.allviews"),
       value: "24.8K",
       change: "+18.2%",
       icon: Eye,
       color: "from-purple-500 to-pink-500",
     },
     {
-      label: "Faollik darajasi",
+      label: t("analytics.activepercent"),
       value: "68.4%",
       change: "+5.7%",
       icon: TrendingUp,
       color: "from-green-500 to-emerald-500",
     },
     {
-      label: "Eng mashhur havola",
+      label: t("analytics.toplink"),
       value: "YouTube",
-      change: "1.2K kliklar",
+      change: `1.2K ${t("analytics.clicks")}`,
       icon: BarChart3,
       color: "from-orange-500 to-red-500",
     },
@@ -72,9 +75,9 @@ export function Analytics() {
           viewport={{ once: true }}
           className="text-center mb-16 space-y-4"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">Kuchli tahlil vositalari</h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">{t("analytics.title")}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Auditoriyangizni tushunish va o\'sish uchun batafsil statistika
+            {t("analytics.subtitle")}
           </p>
         </motion.div>
 
@@ -119,8 +122,8 @@ export function Analytics() {
             className="p-4 md:p-6 rounded-2xl bg-secondary/30 border border-border"
           >
             <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-2">Haftalik statistika</h3>
-              <p className="text-sm text-muted-foreground">Ko'rishlar va kliklar dinamikasi</p>
+              <h3 className="text-xl font-semibold mb-2">{t("analytics.weekstats")}</h3>
+              <p className="text-sm text-muted-foreground">{t("analytics.sees")}</p>
             </div>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
@@ -173,8 +176,8 @@ export function Analytics() {
             className="p-6 rounded-2xl bg-secondary/30 border border-border"
           >
             <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-2">Eng mashhur havolalar</h3>
-              <p className="text-sm text-muted-foreground">Kliklar bo'yicha reytingi</p>
+              <h3 className="text-xl font-semibold mb-2">{t("analytics.toplinks")}</h3>
+              <p className="text-sm text-muted-foreground">{t("analytics.clickratings")}</p>
             </div>
             <div className="space-y-4">
               {linkStats.map((link, index) => (
@@ -188,7 +191,9 @@ export function Analytics() {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium">{link.name}</span>
-                    <span className="text-sm text-muted-foreground">{link.clicks} kliklar</span>
+                    <span className="text-sm text-muted-foreground">
+                      {link.clicks} {t("analytics.clicks")}
+                    </span>
                   </div>
                   <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
                     <motion.div

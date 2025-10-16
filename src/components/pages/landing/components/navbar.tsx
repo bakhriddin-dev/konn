@@ -54,7 +54,7 @@ export const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button>{t("landing.login")}</Button>
+            <Button>{t("navbar.login")}</Button>
           </div>
         </div>
       </div>
