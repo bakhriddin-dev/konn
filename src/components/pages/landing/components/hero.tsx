@@ -127,7 +127,7 @@ export const Hero = () => {
                         <div className="w-24 h-24 rounded-full bg-gradient-to-br from-green-500 to-cyan-500 mx-auto mb-4 flex items-center justify-center">
                           <span className="text-3xl">👨‍💻</span>
                         </div>
-                        <h3 className="text-white font-semibold mb-1">@asoschi</h3>
+                        <h3 className="text-white font-semibold mb-1">@konn</h3>
                         <p className="text-gray-400 text-sm">Content Yaratuvchi & Dizayner</p>
                       </motion.div>
 
@@ -173,8 +173,8 @@ export const Hero = () => {
                   className="hidden md:block absolute -top-6 -right-6 bg-gradient-to-br from-green-500 to-cyan-500 rounded-2xl p-4 shadow-xl"
                 >
                   <div className="text-white text-center">
-                    <div className="text-2xl font-bold">1K</div>
-                    <div className="text-xs opacity-90">Jonli ko'rinish</div>
+                    <div className="text-2xl font-bold">1K+</div>
+                    <div className="text-xs opacity-90">Jonli ko'rishlar</div>
                   </div>
                 </motion.div>
 
