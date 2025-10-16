@@ -15,13 +15,13 @@ export function Analytics() {
   const { t } = useTranslation();
 
   const chartData = [
-    { name: t("analytics.dush"), [t("analytics.views")]: 400, [t("analytics.clickschart")]: 240 },
-    { name: t("analytics.sesh"), [t("analytics.views")]: 300, [t("analytics.clickschart")]: 139 },
-    { name: t("analytics.chor"), [t("analytics.views")]: 520, [t("analytics.clickschart")]: 380 },
-    { name: t("analytics.pay"), [t("analytics.views")]: 278, [t("analytics.clickschart")]: 390 },
-    { name: t("analytics.jum"), [t("analytics.views")]: 489, [t("analytics.clickschart")]: 480 },
-    { name: t("analytics.shan"), [t("analytics.views")]: 639, [t("analytics.clickschart")]: 500 },
-    { name: t("analytics.yak"), [t("analytics.views")]: 548, [t("analytics.clickschart")]: 410 },
+    { name: "Mon", views: 400, clicks: 240 },
+    { name: "Tue", views: 300, clicks: 139 },
+    { name: "Wed", views: 520, clicks: 380 },
+    { name: "Thu", views: 278, clicks: 390 },
+    { name: "Fri", views: 489, clicks: 480 },
+    { name: "Sat", views: 639, clicks: 500 },
+    { name: "Sun", views: 548, clicks: 410 },
   ];
 
   const linkStats = [
@@ -150,14 +150,14 @@ export function Analytics() {
                   />
                   <Area
                     type="monotone"
-                    dataKey="ko'rishlar"
+                    dataKey="views"
                     stroke="#a855f7"
                     fillOpacity={1}
                     fill="url(#colorViews)"
                   />
                   <Area
                     type="monotone"
-                    dataKey="kliklar"
+                    dataKey="clicks"
                     stroke="#ec4899"
                     fillOpacity={1}
                     fill="url(#colorClicks)"

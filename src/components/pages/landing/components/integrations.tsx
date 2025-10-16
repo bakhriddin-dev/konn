@@ -85,7 +85,7 @@ export function Integrations() {
           className="text-center mt-12"
         >
           <div className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20">
-            <span className="text-muted-foreground">50+ {t("integrations.button")}</span>
+            <span className="text-muted-foreground">20+ {t("integrations.button")}</span>
           </div>
         </motion.div>
       </div>

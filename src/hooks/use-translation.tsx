@@ -5,13 +5,13 @@ import { Storage } from "@/utils/storage";
 import { useState } from "react";
 
 export const useTranslation = () => {
-  const [currentLanguage, setCurrentLanguage] = useState(Storage.get(StorageKeys.lang) || "uz");
+  const [currentLanguage] = useState(Storage.get(StorageKeys.lang) || "uz");
 
   const t = (key: string) => translations[key]?.[currentLanguage] || key;
 
   const setLanguage = (language: Language) => {
-    setCurrentLanguage(language);
     Storage.set(StorageKeys.lang, language);
+    window.location.reload();
   };
 
   return { t, setLanguage, currentLanguage };

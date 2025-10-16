@@ -169,7 +169,7 @@ export const Hero = () => {
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 3, repeat: Infinity }}
-                  className="hidden md:block absolute -top-6 -right-6 bg-gradient-to-br from-green-500 to-cyan-500 rounded-2xl p-4 shadow-xl"
+                  className="hidden z-50 md:block absolute -top-6 -right-6 bg-gradient-to-br from-green-500 to-cyan-500 rounded-2xl p-4 shadow-xl"
                 >
                   <div className="text-white text-center">
                     <div className="text-2xl font-bold">1K+</div>
