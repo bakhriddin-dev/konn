@@ -9,6 +9,7 @@ import { Language } from "@/types";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/use-translation";
 import { cn } from "@/utils/utils";
+import { Link } from "react-router";
 
 export const Navbar = () => {
   const { t, setLanguage, currentLanguage } = useTranslation();
@@ -23,8 +24,8 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center">
-              <img src="/icons/logo.png" alt="" className="rounded-md" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br flex items-center justify-center">
+              <img src="/icons/logo.png" alt="Logo" className="rounded-md" />
             </div>
             <span className="text-xl font-bold">Konn.uz</span>
           </div>
@@ -53,7 +54,9 @@ export const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button>{t("navbar.login")}</Button>
+            <Link to="/kirish">
+              <Button>{t("navbar.login")}</Button>
+            </Link>
           </div>
         </div>
       </div>

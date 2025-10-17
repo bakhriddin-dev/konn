@@ -36,8 +36,8 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center">
-                <img src="/icons/logo.png" alt="" className="rounded-md" />
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br flex items-center justify-center">
+                <img src="/icons/logo.png" alt="Logo" className="rounded-md" />
               </div>
               <span className="text-xl font-bold">Konn.uz</span>
             </div>
