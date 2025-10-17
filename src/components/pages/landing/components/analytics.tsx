@@ -15,13 +15,13 @@ export function Analytics() {
   const { t } = useTranslation();
 
   const chartData = [
-    { name: "Mon", views: 400, clicks: 240 },
-    { name: "Tue", views: 300, clicks: 139 },
-    { name: "Wed", views: 520, clicks: 380 },
-    { name: "Thu", views: 278, clicks: 390 },
-    { name: "Fri", views: 489, clicks: 480 },
-    { name: "Sat", views: 639, clicks: 500 },
-    { name: "Sun", views: 548, clicks: 410 },
+    { name: "Dush", ["ko'rishlar"]: 400, kliklar: 240 },
+    { name: "Sesh", ["ko'rishlar"]: 300, kliklar: 139 },
+    { name: "Chor", ["ko'rishlar"]: 520, kliklar: 380 },
+    { name: "Pay", ["ko'rishlar"]: 278, kliklar: 390 },
+    { name: "Jum", ["ko'rishlar"]: 489, kliklar: 480 },
+    { name: "Shan", ["ko'rishlar"]: 639, kliklar: 500 },
+    { name: "Yak", ["ko'rishlar"]: 548, kliklar: 410 },
   ];
 
   const linkStats = [
@@ -63,7 +63,7 @@ export function Analytics() {
   ];
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id="analitika" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent"></div>
 
@@ -150,14 +150,14 @@ export function Analytics() {
                   />
                   <Area
                     type="monotone"
-                    dataKey="views"
+                    dataKey="ko'rishlar"
                     stroke="#a855f7"
                     fillOpacity={1}
                     fill="url(#colorViews)"
                   />
                   <Area
                     type="monotone"
-                    dataKey="clicks"
+                    dataKey="kliklar"
                     stroke="#ec4899"
                     fillOpacity={1}
                     fill="url(#colorClicks)"

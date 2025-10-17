@@ -2,6 +2,10 @@
 @import "tw-animate-css";
 @import "./tailwind.css";
 
+html {
+   scroll-behavior: smooth;
+}
+
 body {
    font-family: "Inter", sans-serif;
 }

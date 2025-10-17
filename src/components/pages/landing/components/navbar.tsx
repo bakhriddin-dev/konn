@@ -16,7 +16,6 @@ export const Navbar = () => {
   const languages = [
     { code: "uz" as Language, label: "O'zbekcha" },
     { code: "ru" as Language, label: "Русский" },
-    { code: "en" as Language, label: "English" },
   ];
 
   return (

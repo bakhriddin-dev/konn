@@ -19,7 +19,10 @@ export const Hero = () => {
   ];
 
   return (
-    <section className="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 relative overflow-hidden">
+    <section
+      id="loyiha"
+      className="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 relative overflow-hidden"
+    >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-green-500/20 to-cyan-500/20 rounded-full blur-2xl opacity-10" />
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-green-500/20 to-cyan-500/20 rounded-full blur-2xl opacity-10" />

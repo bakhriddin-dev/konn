@@ -7,16 +7,9 @@ export function Footer() {
     {
       title: t("footer.product"),
       links: [
-        { label: t("footer.product1"), href: "#" },
-        { label: t("footer.product2"), href: "#" },
-        { label: t("footer.product3"), href: "#" },
-      ],
-    },
-    {
-      title: t("footer.company"),
-      links: [
-        { label: t("footer.company1"), href: "#" },
-        { label: t("footer.company2"), href: "#" },
+        { label: t("footer.product1"), href: "#analitika" },
+        { label: t("footer.product2"), href: "#narxlar" },
+        { label: t("footer.product3"), href: "#loyiha" },
       ],
     },
     {
@@ -24,8 +17,11 @@ export function Footer() {
       links: [
         { label: t("footer.privacy1"), href: "#" },
         { label: t("footer.privacy2"), href: "#" },
-        { label: t("footer.privacy3"), href: "#" },
       ],
+    },
+    {
+      title: t("footer.company"),
+      links: [{ label: t("footer.company1"), href: "#" }],
     },
   ];
 
