@@ -24,7 +24,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center">
-              <span className="text-white font-bold">K</span>
+              <img src="/icons/logo.png" alt="" className="rounded-md" />
             </div>
             <span className="text-xl font-bold">Konn.uz</span>
           </div>
