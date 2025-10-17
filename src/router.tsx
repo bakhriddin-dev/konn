@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { Landing, Login } from "@/components/pages";
+import { Dashboard, Landing, Login } from "@/components/pages";
 
 export const router = createBrowserRouter([
   {
@@ -9,5 +9,9 @@ export const router = createBrowserRouter([
   {
     path: "/kirish",
     Component: Login,
+  },
+  {
+    path: "/boshqaruv-paneli",
+    Component: Dashboard,
   },
 ]);

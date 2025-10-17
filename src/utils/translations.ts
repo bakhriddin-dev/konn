@@ -108,7 +108,10 @@ export const translations = {
   "pricing.feature5": { uz: "Profilga avatar qo'yish", ru: "Добавление аватара в профиль" },
   "pricing.feature6": { uz: "Mobil qurilmaga mos dizayn", ru: "Адаптивный дизайн для мобильных" },
   "pricing.feature7": { uz: "Ilg'or tahlil", ru: "Расширенный анализ" },
-  "pricing.feature8": { uz: "Suv belgisini olib tashlash imkoniyati", ru: "Расширенный анализ" },
+  "pricing.feature8": {
+    uz: "Suv belgisini olib tashlash imkoniyati",
+    ru: "Возможность удалить водяной знак",
+  },
   "pricing.button": { uz: "Rejani tanlash", ru: "Выбрать тариф" },
 
   "cta.title": {
