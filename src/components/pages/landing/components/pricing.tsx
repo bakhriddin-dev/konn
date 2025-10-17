@@ -8,15 +8,32 @@ export function Pricing() {
 
   const plans = [
     {
-      name: t("pricing.plan"),
+      name: t("pricing.planfree"),
       price: "0",
       features: [
-        { text: t("pricing.feature1"), included: true },
         { text: t("pricing.feature2"), included: true },
         { text: t("pricing.feature3"), included: true },
-        { text: t("pricing.feature4"), included: true },
-        { text: t("pricing.feature5"), included: true },
         { text: t("pricing.feature6"), included: true },
+        { text: t("pricing.feature5"), included: true },
+        { text: t("pricing.feature1"), included: false },
+        { text: t("pricing.feature7"), included: false },
+        { text: t("pricing.feature4"), included: false },
+        { text: t("pricing.feature8"), included: false },
+      ],
+      highlighted: false,
+    },
+    {
+      name: t("pricing.planpro"),
+      price: "25.000",
+      features: [
+        { text: t("pricing.feature2"), included: true },
+        { text: t("pricing.feature3"), included: true },
+        { text: t("pricing.feature6"), included: true },
+        { text: t("pricing.feature5"), included: true },
+        { text: t("pricing.feature1"), included: true },
+        { text: t("pricing.feature7"), included: true },
+        { text: t("pricing.feature4"), included: true },
+        { text: t("pricing.feature8"), included: true },
       ],
       highlighted: true,
     },
@@ -36,7 +53,7 @@ export function Pricing() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("pricing.subtitle")}</p>
         </motion.div>
 
-        <div className="max-w-sm mx-auto">
+        <div className="mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-4 justify-center">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -44,7 +61,7 @@ export function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="group"
+              className="group w-sm"
             >
               <div
                 className={`relative h-full p-8 rounded-3xl border ${
