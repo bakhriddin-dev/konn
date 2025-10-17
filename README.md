@@ -7,7 +7,7 @@ Perfect for bloggers, content creators, and online entrepreneurs.
 
 * Clean and intuitive interface
 * Create, edit, and delete links
-* Integration with the backend via **RTK Query** for reliable API interaction
+* Integration with backend service appwrite
 * Great example of modern frontend development for a portfolio
 
 ## Getting Started
@@ -21,11 +21,9 @@ npm install
 npm run dev
 ```
 
-> ⚠️ The backend must be running separately for the client to interact with the API.
-
 ## Built With
 
 * React + Vite
 * Tailwind CSS
 * shadcn/ui
-* Redux Toolkit + RTK Query
+* Redux Toolkit
