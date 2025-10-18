@@ -12,10 +12,19 @@ export const Dashboard = () => {
     const getUser = async () => {
       try {
         const res = await account.get();
-        setUser(res);
 
         const jwt = await account.createJWT();
         client.setJWT(jwt.jwt);
+
+        const prefs = await account.getPrefs();
+
+        if (!prefs.username) {
+          const username = res.email.split("@")[0];
+          await account.updatePrefs({ ...prefs, username });
+        }
+
+        const resSecond = await account.get();
+        setUser(resSecond);
       } catch {
         window.location.href = "/kirish";
       }
@@ -35,7 +44,7 @@ export const Dashboard = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-[240px_1fr] gap-8">
-          <Sidebar />
+          <Sidebar user={user} />
 
           <main>
             <Outlet />
