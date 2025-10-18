@@ -26,4 +26,4 @@ npm run dev
 * React + Vite
 * Tailwind CSS
 * shadcn/ui
-* Redux Toolkit
+* Redux Toolkit + RTK Query
