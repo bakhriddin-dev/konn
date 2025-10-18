@@ -1,7 +1,45 @@
+import { Loader } from "@/components/common";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router";
+import { account } from "@/utils/appwrite";
+import { OAuthProvider } from "appwrite";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
 
 export const Login = () => {
+  const [checking, setChecking] = useState(true);
+
+  const navigate = useNavigate();
+  const login = async () => {
+    const success = window.location.origin + "/boshqaruv-paneli";
+    const failure = window.location.origin + "/oauth-failure";
+
+    await account.createOAuth2Session({
+      provider: OAuthProvider.Google,
+      success,
+      failure,
+      scopes: ["email", "profile"],
+    });
+  };
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const user = await account.get();
+        if (user) {
+          navigate("/boshqaruv-paneli", { replace: true });
+        }
+      } catch {
+        setChecking(false);
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
+  if (checking) {
+    return <Loader />;
+  }
+
   return (
     <div className="dark min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background decoration */}
@@ -26,6 +64,7 @@ export const Login = () => {
             <p className="text-muted-foreground text-sm">Faqat Google orqali kirish mumkin</p>
 
             <Button
+              onClick={login}
               type="button"
               variant="outline"
               className="w-full flex items-center justify-center gap-2 border-gray-300 bg-white hover:bg-gray-100 transition-all hover:scale-[1.02]"

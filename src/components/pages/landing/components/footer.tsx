@@ -8,7 +8,6 @@ export function Footer() {
       title: t("footer.product"),
       links: [
         { label: t("footer.product1"), href: "#analitika" },
-        { label: t("footer.product2"), href: "#narxlar" },
         { label: t("footer.product3"), href: "#loyiha" },
       ],
     },

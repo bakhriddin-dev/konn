@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
-import { Dashboard, Landing, Login } from "@/components/pages";
+import { Dashboard, Landing, Login, OAuthFailure } from "@/components/pages";
+import { PrivateRoute } from "./components/layouts";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,14 @@ export const router = createBrowserRouter([
   },
   {
     path: "/boshqaruv-paneli",
-    Component: Dashboard,
+    Component: () => (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/oauth-failure",
+    Component: OAuthFailure,
   },
 ]);
