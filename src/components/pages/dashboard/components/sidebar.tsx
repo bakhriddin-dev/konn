@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { LayoutDashboard, Link2, Palette, Settings, BarChart3, X } from "lucide-react";
 import { Link } from "react-router";
 
-export const Sidebar = ({ user }) => {
+export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui.isSidebarOpen);
 
@@ -24,13 +24,13 @@ export const Sidebar = ({ user }) => {
               U
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-semibold truncate text-sm">{user?.name}</div>
+              <div className="font-semibold truncate text-sm">User</div>
               <Link to="sozlamalar" className="text-muted-foreground text-xs hover:underline">
                 o'zgartirish
               </Link>
             </div>
           </div>
-          <div className="text-xs text-muted-foreground">konn.uz/{user?.prefs.username}</div>
+          <div className="text-xs text-muted-foreground">konn.uz/username</div>
         </div>
 
         <nav className="space-y-2 hidden lg:block">
