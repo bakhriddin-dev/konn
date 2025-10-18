@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/use-translation";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { Link } from "react-router";
 
 export function CTA() {
   const { t } = useTranslation();
@@ -46,10 +47,12 @@ export function CTA() {
                 whileTap={{ scale: 0.95 }}
                 className="max-w-max mx-auto"
               >
-                <Button size="lg" className="bg-white text-black hover:bg-white/90 gap-2 group">
-                  {t("cta.button")}
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <Link to="/kirish">
+                  <Button size="lg" className="bg-white text-black hover:bg-white/90 gap-2 group">
+                    {t("cta.button")}
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               </motion.div>
             </div>
           </div>

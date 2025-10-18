@@ -4,6 +4,7 @@ import { ArrowRight, Instagram, Youtube, Twitter, Globe, Music } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/hooks/use-translation";
+import { Link } from "react-router";
 
 export const Hero = () => {
   const { t } = useTranslation();
@@ -74,14 +75,15 @@ export const Hero = () => {
                   </div>
                 </div>
               </div>
-
-              <Button
-                size="lg"
-                className="w-full gap-2 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 group"
-              >
-                {t("hero.button")}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <Link to="/kirish">
+                <Button
+                  size="lg"
+                  className="w-full gap-2 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 group"
+                >
+                  {t("hero.button")}
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
             </div>
 
             <div className="flex items-center gap-6 pt-2">
