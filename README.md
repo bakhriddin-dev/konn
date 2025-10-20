@@ -1,4 +1,4 @@
-# Konn — single page for all your links
+# Konn: Single page for all your links!
 
 Konn is a lightweight open-source Linktree-style app: one public page with all your links. Built for simplicity, fast UX and easy deployment.
 
@@ -10,7 +10,6 @@ Konn is a lightweight open-source Linktree-style app: one public page with all y
 
 ## Tech stack
 - **Frontend:** React, Redux Toolkit, RTK Query, Tailwind, shadcn, Framer Motion  
-- **Auth:** Google OAuth  
 - **Backend:** Node.js + Express, **MongoDB** (database)
 
 ## Quick start (dev)
@@ -57,7 +56,3 @@ VITE_GOOGLE_CLIENT_ID=your_google_client_id
   - `PUT /api/me/links/:id` — update link  
   - `DELETE /api/me/links/:id` — delete link  
   - `PUT /api/me/links/order` — reorder links
-
-## Frontend notes
-- Uses RTK Query for fetching and caching data.
-- Modern and clean UI built with Tailwind and shadcn components.
