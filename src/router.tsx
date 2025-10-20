@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { Dashboard, Landing, LinksTab, Login, OAuthFailure } from "@/components/pages";
+import { Dashboard, Landing, LinksTab, Login, NotFound } from "@/components/pages";
 import { PrivateRoute } from "./components/layouts";
 
 export const router = createBrowserRouter([
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/oauth-failure",
-    Component: OAuthFailure,
+    path: "*",
+    Component: NotFound,
   },
 ]);

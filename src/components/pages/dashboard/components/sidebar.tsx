@@ -1,4 +1,5 @@
-import { closeSidebar } from "@/features";
+import { Loader } from "@/components/common";
+import { closeSidebar, useGetProfileQuery } from "@/features";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Link2, Palette, Settings, BarChart3, X } from "lucide-react";
 import { Link } from "react-router";
@@ -6,6 +7,7 @@ import { Link } from "react-router";
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui.isSidebarOpen);
+  const { data, isLoading } = useGetProfileQuery("");
 
   const tabs = [
     { url: "havolalar", label: "Havolalar", icon: Link2 },
@@ -14,22 +16,26 @@ export const Sidebar = () => {
     { url: "sozlamalar", label: "Sozlamalar", icon: Settings },
   ];
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <aside className="space-y-2">
         <div className="bg-card border border-border rounded-xl p-4 mb-4">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center text-2xl">
-              U
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center text-2xl overflow-hidden">
+              <img src={data?.avatar} alt="" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-semibold truncate text-sm">User</div>
+              <div className="font-semibold truncate text-sm">{data?.name}</div>
               <Link to="sozlamalar" className="text-muted-foreground text-xs hover:underline">
                 o'zgartirish
               </Link>
             </div>
           </div>
-          <div className="text-xs text-muted-foreground">konn.uz/username</div>
+          <div className="text-xs text-muted-foreground">konn.uz/{data?.username}</div>
         </div>
 
         <nav className="space-y-2 hidden lg:block">

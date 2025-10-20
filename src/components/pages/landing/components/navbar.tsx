@@ -10,9 +10,11 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/use-translation";
 import { cn } from "@/utils/utils";
 import { Link } from "react-router";
+import { useGetProfileQuery } from "@/features";
 
 export const Navbar = () => {
   const { t, setLanguage, currentLanguage } = useTranslation();
+  const { data, isLoading } = useGetProfileQuery("");
 
   const languages = [
     { code: "uz" as Language, label: "O'zbekcha" },
@@ -54,9 +56,19 @@ export const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link to="/kirish">
-              <Button>{t("navbar.login")}</Button>
-            </Link>
+            {isLoading ? (
+              <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse" />
+            ) : data ? (
+              <Link to="/boshqaruv-paneli/havolalar">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center text-2xl overflow-hidden">
+                  <img src={data.avatar} alt="" />
+                </div>
+              </Link>
+            ) : (
+              <Link to="/kirish">
+                <Button>{t("navbar.login")}</Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
