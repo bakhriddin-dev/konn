@@ -1,9 +1,7 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
 import {
   Dialog,
   DialogContent,
@@ -18,22 +16,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Link2, GripVertical, Pencil, Trash2 } from "lucide-react";
+import { Plus, Link2 } from "lucide-react";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useCreateLinkMutation,
   useDeleteLinkMutation,
   useEditLinkMutation,
   useGetProfileQuery,
+  useUpdateLinksOrderMutation,
 } from "@/features/api/api-slice";
 import { Loader } from "@/components/common";
-import { IconRenderer } from "@/components/common/icon-renderer/icon-renderer";
 import { iconOptions } from "@/constants/icons";
+import {
+  DndContext,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { SortableItem } from "./sortable-item";
 
 export const LinksTab = () => {
   const [createLink, { isLoading: createLinkLoading }] = useCreateLinkMutation();
   const [editLink, { isLoading: editLinkLoading }] = useEditLinkMutation();
+  const [updateLinksOrder] = useUpdateLinksOrderMutation();
   const [deleteLink] = useDeleteLinkMutation();
   const { data, isLoading } = useGetProfileQuery("");
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -43,6 +53,7 @@ export const LinksTab = () => {
     url: "",
     icon: "Globe",
   });
+  const [links, setLinks] = useState(data?.links || []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,6 +99,30 @@ export const LinksTab = () => {
       deleteLink(linkId);
     }
   };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = links.findIndex((link) => link.id === active.id);
+    const newIndex = links.findIndex((link) => link.id === over.id);
+
+    const newLinks = arrayMove(links, oldIndex, newIndex);
+    setLinks(newLinks);
+
+    await updateLinksOrder(newLinks).unwrap();
+  };
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 100, tolerance: 5 } })
+  );
+
+  useEffect(() => {
+    if (data) {
+      setLinks(data?.links);
+    }
+  }, [data]);
 
   if (isLoading) {
     return <Loader />;
@@ -190,7 +225,7 @@ export const LinksTab = () => {
       </div>
 
       <div className="space-y-3">
-        {data?.links?.length === 0 ? (
+        {links?.length === 0 ? (
           <Card className="p-12 text-center border-dashed">
             <div className="w-16 h-16 rounded-2xl bg-secondary mx-auto mb-4 flex items-center justify-center">
               <Link2 className="w-8 h-8 text-muted-foreground" />
@@ -201,58 +236,26 @@ export const LinksTab = () => {
             </p>
           </Card>
         ) : (
-          data?.links?.map((link, index) => {
-            return (
-              <motion.div
-                key={link.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <Card className="p-4 border-border hover:border-green-500/50 transition-colors">
-                  <div className="flex items-center gap-4">
-                    <button className="cursor-move text-muted-foreground hover:text-foreground">
-                      <GripVertical className="w-5 h-5" />
-                    </button>
-
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center flex-shrink-0">
-                      <IconRenderer iconName={link.icon} className="w-5 h-5 text-white" />
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate">{link.title}</div>
-                      <div className="text-sm text-muted-foreground truncate">{link.url}</div>
-                    </div>
-
-                    <div className="text-sm text-muted-foreground">{link.clicks} clicks</div>
-
-                    <Switch
-                      checked={link.enabled}
-                      onCheckedChange={(checked) => handleToggle(link.id, checked)}
-                    />
-                    <div className="flex gap-1">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="dark:bg-accent-300"
-                        onClick={() => handleEdit(link)}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="dark:bg-accent-300"
-                        onClick={() => handleDelete(link.id)}
-                      >
-                        <Trash2 className="w-4 h-4 text-red-700" />
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            );
-          })
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext items={links} strategy={verticalListSortingStrategy}>
+              {links?.map((link, index) => {
+                return (
+                  <SortableItem
+                    key={link.id}
+                    link={link}
+                    index={index}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                    handleToggle={handleToggle}
+                  />
+                );
+              })}
+            </SortableContext>
+          </DndContext>
         )}
       </div>
     </div>

@@ -41,6 +41,14 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Profile"],
     }),
+    updateLinksOrder: builder.mutation({
+      query: (links) => ({
+        url: `/users/me/links/order`,
+        method: "PUT",
+        body: { links },
+      }),
+      invalidatesTags: ["Profile"],
+    }),
     deleteLink: builder.mutation({
       query: (linkId) => ({
         url: `/users/me/links/${linkId}`,
@@ -62,4 +70,5 @@ export const {
   useGetPublicProfileQuery,
   useDeleteLinkMutation,
   useEditLinkMutation,
+  useUpdateLinksOrderMutation,
 } = apiSlice;
