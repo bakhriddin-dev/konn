@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { Dashboard, Landing, Login, OAuthFailure } from "@/components/pages";
+import { Dashboard, Landing, LinksTab, Login, OAuthFailure } from "@/components/pages";
 import { PrivateRoute } from "./components/layouts";
 
 export const router = createBrowserRouter([
@@ -18,6 +18,12 @@ export const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "havolalar",
+        Component: LinksTab,
+      },
+    ],
   },
   {
     path: "/oauth-failure",

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import { Sidebar } from "./components/sidebar";
 import { Navbar } from "./components/navbar";
+import { Toaster } from "sonner";
 
 export const Dashboard = () => {
   return (
@@ -16,6 +17,8 @@ export const Dashboard = () => {
           <main>
             <Outlet />
           </main>
+
+          <Toaster />
         </div>
       </div>
     </div>

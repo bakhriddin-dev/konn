@@ -7,8 +7,7 @@ Perfect for bloggers, content creators, and online entrepreneurs.
 
 * Clean and intuitive interface
 * Create, edit, and delete links
-* Integration with backend service appwrite
-* Great example of modern frontend development for a portfolio
+* Integration with the backend via RTK Query for reliable API interaction
 
 ## Getting Started
 
@@ -20,6 +19,8 @@ cd konn
 npm install
 npm run dev
 ```
+
+> ⚠️ The <a href="https://github.com/bakhriddin-dev/konn-server" target="_blank">backend</a> must be running separately for the client to interact with the API.
 
 ## Built With
 

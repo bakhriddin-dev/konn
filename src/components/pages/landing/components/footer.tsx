@@ -1,4 +1,6 @@
 import { useTranslation } from "@/hooks/use-translation";
+import { Github } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -20,13 +22,15 @@ export function Footer() {
     },
     {
       title: t("footer.company"),
-      links: [{ label: t("footer.company1"), href: "#" }],
+      links: [
+        { label: t("footer.company1"), href: "https://github.com/bakhriddin-dev/konn/issues" },
+      ],
     },
   ];
 
-  // const socialLinks = [
-  //   { icon: Instagram, href: "#", label: "Instagram" },
-  // ];
+  const socialLinks = [
+    { icon: Github, href: "https://github.com/bakhriddin-dev/konn", label: "Github" },
+  ];
 
   return (
     <footer className="border-t border-border bg-secondary/20">
@@ -42,7 +46,7 @@ export function Footer() {
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm">{t("footer.title")}</p>
             <div className="flex items-center gap-3">
-              {/* {socialLinks.map((social, index) => (
+              {socialLinks.map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
@@ -53,7 +57,7 @@ export function Footer() {
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
-              ))} */}
+              ))}
             </div>
           </div>
 

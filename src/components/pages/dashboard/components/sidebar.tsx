@@ -1,6 +1,6 @@
 import { closeSidebar } from "@/features";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { LayoutDashboard, Link2, Palette, Settings, BarChart3, X } from "lucide-react";
+import { Link2, Palette, Settings, BarChart3, X } from "lucide-react";
 import { Link } from "react-router";
 
 export const Sidebar = () => {
@@ -8,7 +8,6 @@ export const Sidebar = () => {
   const isOpen = useAppSelector((state) => state.ui.isSidebarOpen);
 
   const tabs = [
-    { url: "umumiy", label: "Umumiy", icon: LayoutDashboard },
     { url: "havolalar", label: "Havolalar", icon: Link2 },
     { url: "dizayn", label: "Dizayn", icon: Palette },
     { url: "tahlil", label: "Tahlil", icon: BarChart3 },
@@ -39,7 +38,7 @@ export const Sidebar = () => {
               to={tab.url}
               key={tab.url}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                "umumiy" === tab.url
+                "havolalar" === tab.url
                   ? "bg-green-500/10 text-green-400 border border-green-500/20"
                   : "hover:bg-secondary text-muted-foreground hover:text-foreground"
               }`}
