@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { openSidebar } from "@/features";
+import { openSidebar, useGetProfileQuery } from "@/features";
 import { useAppDispatch } from "@/hooks";
 import { Eye, Menu } from "lucide-react";
+import { Link } from "react-router";
 
 export const Navbar = () => {
   const dispatch = useAppDispatch();
+  const { data } = useGetProfileQuery("");
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,10 +26,12 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="outline" size="sm" className="gap-2 !p-2 h-auto">
-            <Eye className="w-4 h-4" />
-            <span className="hidden lg:inline">Profilni ko'rish</span>
-          </Button>
+          <Link to={`/${data?.username}`}>
+            <Button variant="outline" size="sm" className="gap-2 !p-2 h-auto">
+              <Eye className="w-4 h-4" />
+              <span className="hidden lg:inline">Profilni ko'rish</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export const GoogleLoginButton = () => {
       const idToken = response.credential;
       const result = await googleLogin(idToken).unwrap();
       dispatch(setCredentials(result));
-      navigate("/boshqaruv-paneli/havolalar");
+      navigate("/dashboard/links");
     } catch (error) {
       console.log(error);
     }

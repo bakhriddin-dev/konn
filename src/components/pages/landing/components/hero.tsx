@@ -75,7 +75,7 @@ export const Hero = () => {
                   </div>
                 </div>
               </div>
-              <Link to="/kirish">
+              <Link to="login">
                 <Button
                   size="lg"
                   className="w-full gap-2 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 group"

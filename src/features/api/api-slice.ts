@@ -12,6 +12,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Profile"],
   endpoints: (builder) => ({
     googleLogin: builder.mutation({
       query: (idToken) => ({
@@ -22,8 +23,43 @@ export const apiSlice = createApi({
     }),
     getProfile: builder.query({
       query: () => "/users/me",
+      providesTags: ["Profile"],
+    }),
+    createLink: builder.mutation({
+      query: (body) => ({
+        url: "/users/me/links",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
+    editLink: builder.mutation({
+      query: (body) => ({
+        url: `/users/me/links/${body.id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
+    deleteLink: builder.mutation({
+      query: (linkId) => ({
+        url: `/users/me/links/${linkId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Profile"],
+    }),
+    getPublicProfile: builder.query({
+      query: (username: string) => `/users/${username}/public`,
+      providesTags: ["Profile"],
     }),
   }),
 });
 
-export const { useGoogleLoginMutation, useGetProfileQuery } = apiSlice;
+export const {
+  useGoogleLoginMutation,
+  useGetProfileQuery,
+  useCreateLinkMutation,
+  useGetPublicProfileQuery,
+  useDeleteLinkMutation,
+  useEditLinkMutation,
+} = apiSlice;

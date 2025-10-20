@@ -18,127 +18,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Instagram,
-  Youtube,
-  Twitter,
-  Globe,
-  Music,
-  Github,
-  Facebook,
-  Linkedin,
-  Mail,
-  Phone,
-  Twitch,
-  Dribbble,
-  Figma,
-  Gitlab,
-  Slack,
-  Chrome,
-  Codepen,
-  Cloud,
-  MapPin,
-  Camera,
-  Calendar,
-  Coffee,
-  ShoppingCart,
-  FileText,
-  Heart,
-  Star,
-  Play,
-  Send,
-  MessageCircle,
-  Book,
-  Cpu,
-  Shield,
-  User,
-  Users,
-  Briefcase,
-  Building,
-  Radio,
-  Monitor,
-  Smartphone,
-  Wifi,
-  Rss,
-  Zap,
-  Rocket,
-  Globe2,
-  Plus,
-  Link2,
-  GripVertical,
-  Pencil,
-  Trash2,
-} from "lucide-react";
+import { Plus, Link2, GripVertical, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
-
-export const iconOptions = [
-  { value: "Telegram", label: "Telegram", Icon: Send },
-  { value: "Instagram", label: "Instagram", Icon: Instagram },
-  { value: "Youtube", label: "YouTube", Icon: Youtube },
-  { value: "Twitter", label: "Twitter/X", Icon: Twitter },
-  { value: "Globe", label: "Website", Icon: Globe },
-  { value: "Music", label: "Music", Icon: Music },
-  { value: "Github", label: "GitHub", Icon: Github },
-  { value: "Facebook", label: "Facebook", Icon: Facebook },
-  { value: "Linkedin", label: "LinkedIn", Icon: Linkedin },
-  { value: "Mail", label: "Email", Icon: Mail },
-  { value: "Phone", label: "Phone", Icon: Phone },
-  { value: "Twitch", label: "Twitch", Icon: Twitch },
-  { value: "Dribbble", label: "Dribbble", Icon: Dribbble },
-  { value: "Figma", label: "Figma", Icon: Figma },
-  { value: "Gitlab", label: "GitLab", Icon: Gitlab },
-  { value: "Slack", label: "Slack", Icon: Slack },
-  { value: "Chrome", label: "Chrome", Icon: Chrome },
-  { value: "Codepen", label: "CodePen", Icon: Codepen },
-  { value: "Cloud", label: "Cloud", Icon: Cloud },
-  { value: "MapPin", label: "Location", Icon: MapPin },
-  { value: "Camera", label: "Camera", Icon: Camera },
-  { value: "Calendar", label: "Calendar", Icon: Calendar },
-  { value: "Coffee", label: "Coffee", Icon: Coffee },
-  { value: "ShoppingCart", label: "Shop", Icon: ShoppingCart },
-  { value: "FileText", label: "Document", Icon: FileText },
-  { value: "Heart", label: "Like / Love", Icon: Heart },
-  { value: "Star", label: "Favorite / Star", Icon: Star },
-  { value: "Play", label: "Play", Icon: Play },
-  { value: "MessageCircle", label: "Chat", Icon: MessageCircle },
-  { value: "Book", label: "Book / Article", Icon: Book },
-  { value: "Cpu", label: "Tech / CPU", Icon: Cpu },
-  { value: "Shield", label: "Security", Icon: Shield },
-  { value: "User", label: "User", Icon: User },
-  { value: "Users", label: "Users", Icon: Users },
-  { value: "Briefcase", label: "Work / Business", Icon: Briefcase },
-  { value: "Building", label: "Company / Building", Icon: Building },
-  { value: "Radio", label: "Podcast / Radio", Icon: Radio },
-  { value: "Monitor", label: "Monitor", Icon: Monitor },
-  { value: "Smartphone", label: "Mobile", Icon: Smartphone },
-  { value: "Wifi", label: "Wi-Fi", Icon: Wifi },
-  { value: "Rss", label: "RSS Feed", Icon: Rss },
-  { value: "Zap", label: "Zap / Lightning", Icon: Zap },
-  { value: "Rocket", label: "Startup / Rocket", Icon: Rocket },
-  { value: "Globe2", label: "Global", Icon: Globe2 },
-];
-
-const links = [
-  {
-    id: "1",
-    title: "Telegram",
-    url: "https://t.me/for",
-    icon: Send,
-    enabled: true,
-    clicks: 8,
-  },
-  {
-    id: "1",
-    title: "Instagram",
-    url: "https://instagram.com/for",
-    icon: Instagram,
-    enabled: false,
-    clicks: 8,
-  },
-];
+import {
+  useCreateLinkMutation,
+  useDeleteLinkMutation,
+  useEditLinkMutation,
+  useGetProfileQuery,
+} from "@/features/api/api-slice";
+import { Loader } from "@/components/common";
+import { IconRenderer } from "@/components/common/icon-renderer/icon-renderer";
+import { iconOptions } from "@/constants/icons";
 
 export const LinksTab = () => {
+  const [createLink, { isLoading: createLinkLoading }] = useCreateLinkMutation();
+  const [editLink, { isLoading: editLinkLoading }] = useEditLinkMutation();
+  const [deleteLink] = useDeleteLinkMutation();
+  const { data, isLoading } = useGetProfileQuery("");
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingLink, setEditingLink] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -147,15 +44,23 @@ export const LinksTab = () => {
     icon: "Globe",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (editingLink) {
-      // updateLink(editingLink, formData);
-      toast.success("Havola yangilandi");
+      try {
+        await editLink({ id: editingLink, ...formData }).unwrap();
+        toast.success("Havola yangilandi");
+      } catch {
+        toast.error("Havola yangilashda xatolik");
+      }
     } else {
-      // addLink({...formData, enabled: true})
-      toast.success("Havola qo'shildi");
+      try {
+        await createLink({ ...formData, enabled: true }).unwrap();
+        toast.success("Havola qo'shildi");
+      } catch {
+        toast.error("Havola qo'shishda xatolik");
+      }
     }
 
     setIsAddOpen(false);
@@ -163,20 +68,30 @@ export const LinksTab = () => {
     setFormData({ title: "", url: "", icon: "Globe" });
   };
 
-  const handleToggle = (linkId: string, enabled: boolean) => {
-    // updateLink(linkId, { enabled });
-    toast.success(enabled ? "Havola yoqildi" : "Havola o'chirildi");
+  const handleToggle = async (linkId: string, enabled: boolean) => {
+    try {
+      await editLink({ id: linkId, enabled }).unwrap();
+      toast.success(enabled ? "Havola yoqildi" : "Havola o'chirildi");
+    } catch {
+      toast.error("Havola yangilashda xatolik");
+    }
   };
 
-  const handleEdit = (linkId: string) => {
-    //
-    console.log(linkId);
+  const handleEdit = async (link) => {
+    setIsAddOpen(true);
+    setEditingLink(link.id);
+    setFormData({ title: link.title, url: link.url, icon: link.icon });
   };
 
   const handleDelete = (linkId: string) => {
-    //
-    console.log(linkId);
+    if (confirm("Linkni o'chirasizmi?")) {
+      deleteLink(linkId);
+    }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="space-y-6">
@@ -246,8 +161,16 @@ export const LinksTab = () => {
               </div>
 
               <div className="flex gap-2 pt-4">
-                <Button type="submit" className="flex-1">
-                  {editingLink ? "Saqlash" : "Qo'shish"}
+                <Button
+                  disabled={createLinkLoading || editLinkLoading}
+                  type="submit"
+                  className="flex-1"
+                >
+                  {editingLink ? (
+                    <>{editLinkLoading ? "Saqlanyapti..." : "Saqlash"}</>
+                  ) : (
+                    <>{createLinkLoading ? "Qo'shilyapti..." : "Qo'shish"}</>
+                  )}
                 </Button>
                 <Button
                   onClick={() => {
@@ -267,7 +190,7 @@ export const LinksTab = () => {
       </div>
 
       <div className="space-y-3">
-        {links.length === 0 ? (
+        {data?.links?.length === 0 ? (
           <Card className="p-12 text-center border-dashed">
             <div className="w-16 h-16 rounded-2xl bg-secondary mx-auto mb-4 flex items-center justify-center">
               <Link2 className="w-8 h-8 text-muted-foreground" />
@@ -278,8 +201,7 @@ export const LinksTab = () => {
             </p>
           </Card>
         ) : (
-          links.map((link, index) => {
-            const Icon = link.icon;
+          data?.links?.map((link, index) => {
             return (
               <motion.div
                 key={link.id}
@@ -293,8 +215,8 @@ export const LinksTab = () => {
                       <GripVertical className="w-5 h-5" />
                     </button>
 
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center flex-shrink-0">
+                      <IconRenderer iconName={link.icon} className="w-5 h-5 text-white" />
                     </div>
 
                     <div className="flex-1 min-w-0">
@@ -313,7 +235,7 @@ export const LinksTab = () => {
                         variant="ghost"
                         size="sm"
                         className="dark:bg-accent-300"
-                        onClick={() => handleEdit(link.id)}
+                        onClick={() => handleEdit(link)}
                       >
                         <Pencil className="w-4 h-4" />
                       </Button>

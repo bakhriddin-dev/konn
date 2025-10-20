@@ -10,10 +10,10 @@ export const Sidebar = () => {
   const { data, isLoading } = useGetProfileQuery("");
 
   const tabs = [
-    { url: "havolalar", label: "Havolalar", icon: Link2 },
-    { url: "dizayn", label: "Dizayn", icon: Palette },
-    { url: "tahlil", label: "Tahlil", icon: BarChart3 },
-    { url: "sozlamalar", label: "Sozlamalar", icon: Settings },
+    { url: "links", label: "Havolalar", icon: Link2 },
+    { url: "design", label: "Dizayn", icon: Palette },
+    { url: "analytics", label: "Tahlil", icon: BarChart3 },
+    { url: "settings", label: "Sozlamalar", icon: Settings },
   ];
 
   if (isLoading) {

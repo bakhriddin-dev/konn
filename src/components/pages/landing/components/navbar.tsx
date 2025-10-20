@@ -59,13 +59,13 @@ export const Navbar = () => {
             {isLoading ? (
               <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse" />
             ) : data ? (
-              <Link to="/boshqaruv-paneli/havolalar">
+              <Link to="/dashboard/links">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center text-2xl overflow-hidden">
                   <img src={data.avatar} alt="" />
                 </div>
               </Link>
             ) : (
-              <Link to="/kirish">
+              <Link to="login">
                 <Button>{t("navbar.login")}</Button>
               </Link>
             )}

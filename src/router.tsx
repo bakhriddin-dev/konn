@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { Dashboard, Landing, LinksTab, Login, NotFound } from "@/components/pages";
+import { Dashboard, Landing, LinksTab, Login, NotFound, UserProfile } from "@/components/pages";
 import { PrivateRoute } from "./components/layouts";
 
 export const router = createBrowserRouter([
@@ -8,11 +8,11 @@ export const router = createBrowserRouter([
     Component: Landing,
   },
   {
-    path: "/kirish",
+    path: "/login",
     Component: Login,
   },
   {
-    path: "/boshqaruv-paneli",
+    path: "/dashboard",
     Component: () => (
       <PrivateRoute>
         <Dashboard />
@@ -20,10 +20,18 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "havolalar",
+        path: "links",
         Component: LinksTab,
       },
     ],
+  },
+  {
+    path: "/:username",
+    Component: UserProfile,
+  },
+  {
+    path: "/not-found",
+    Component: NotFound,
   },
   {
     path: "*",
