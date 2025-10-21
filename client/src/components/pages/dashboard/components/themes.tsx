@@ -7,22 +7,27 @@ import { themes, ThemeType } from "@/constants/themes";
 import { useGetProfileQuery } from "@/features";
 import { useUpdateMeMutation } from "@/features/api/api-slice";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/hooks";
 
 export const ThemesTab = () => {
+  const {t} = useTranslation()
   const { data: user, isLoading } = useGetProfileQuery("");
   const [updateMe, { isLoading: isUpdateLoading }] = useUpdateMeMutation();
   const [selectedTheme, setSelectedTheme] = useState<ThemeType>(user?.theme);
+  const [visibleCount, setVisibleCount] = useState(themes.length);
 
   const handleThemeChange = (themeId: ThemeType) => {
     setSelectedTheme(themeId);
   };
 
   const handleSaveTheme = async () => {
-    const res = await updateMe({ theme: selectedTheme });
-    toast.success("Mavzu o'zgartirildi");
+    await updateMe({ theme: selectedTheme });
+    toast.success(t("dashboard.themes.themechange"));
   };
 
   const currentTheme = themes.find((t) => t.id === selectedTheme) || themes[2];
+
+  const isMobile = window.innerWidth <= 768;
 
   useEffect(() => {
     if (!isLoading) {
@@ -30,22 +35,30 @@ export const ThemesTab = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (isMobile) {
+      setVisibleCount(3);
+    } else {
+      setVisibleCount(themes.length);
+    }
+  }, [isMobile]);
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Dizayn</h1>
+        <h1 className="text-3xl font-bold mb-2">{t("dashboard.sidebar.design")}</h1>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Theme selector */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Mavzuni tanlang</h3>
+            <h3 className="text-lg font-semibold">{t("dashboard.themes.picktheme")}</h3>
             <Button onClick={handleSaveTheme} disabled={isUpdateLoading}>
-              {isUpdateLoading ? "Saqlanyapti..." : "Saqlash"}
+              {isUpdateLoading ? t("dashboard.themes.saving") : t("dashboard.themes.save")}
             </Button>
           </div>
-          {themes.map((theme, index) => (
+          {themes.slice(0, visibleCount).map((theme, index) => (
             <motion.div
               key={theme.id}
               initial={{ opacity: 0, x: -20 }}
@@ -69,7 +82,7 @@ export const ThemesTab = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{theme.name}</h3>
-                      <p className="text-sm text-muted-foreground">{theme.description}</p>
+                      <p className="text-sm text-muted-foreground">{(t(theme.description))}</p>
                     </div>
                   </div>
                   {selectedTheme === theme.id && (
@@ -86,6 +99,16 @@ export const ThemesTab = () => {
             </motion.div>
           ))}
         </div>
+
+        {visibleCount < themes.length && (
+          <Button
+            variant="outline"
+            onClick={() => setVisibleCount(themes.length)}
+            className="text-sm max-w-max mx-auto"
+          >
+            Hammasini ko'rish
+          </Button>
+        )}
 
         {/* Live preview */}
         {!isLoading && user && (
@@ -110,7 +133,11 @@ export const ThemesTab = () => {
                             <div
                               className={`w-20 h-20 rounded-full ${currentTheme.accent} mx-auto mb-3 flex items-center justify-center text-2xl overflow-hidden`}
                             >
-                              {user?.avatar === "" ? <img src={user?.avatar} /> : <>{user?.name[0]}</>}
+                              {user?.avatar === "" ? (
+                                <img src={user?.avatar} />
+                              ) : (
+                                <>{user?.name[0]}</>
+                              )}
                             </div>
                             <h3 className={`font-semibold mb-1 ${currentTheme.text}`}>
                               {user?.name}

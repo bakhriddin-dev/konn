@@ -39,8 +39,10 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { SortableItem } from "./sortable-item";
+import { useTranslation } from "@/hooks";
 
 export const LinksTab = () => {
+  const { t } = useTranslation();
   const [createLink, { isLoading: createLinkLoading }] = useCreateLinkMutation();
   const [editLink, { isLoading: editLinkLoading }] = useEditLinkMutation();
   const [updateLinksOrder] = useUpdateLinksOrderMutation();
@@ -61,16 +63,16 @@ export const LinksTab = () => {
     if (editingLink) {
       try {
         await editLink({ id: editingLink, ...formData }).unwrap();
-        toast.success("Havola yangilandi");
+        toast.success(t("dashboard.links.linkupdated"));
       } catch {
-        toast.error("Havola yangilashda xatolik");
+        toast.error(t("dashboard.links.linkupdatederror"));
       }
     } else {
       try {
         await createLink({ ...formData, enabled: true }).unwrap();
-        toast.success("Havola qo'shildi");
+        toast.success(t("dashboard.links.added"));
       } catch {
-        toast.error("Havola qo'shishda xatolik");
+        toast.error(t("dashboard.links.addederror"));
       }
     }
 
@@ -82,9 +84,9 @@ export const LinksTab = () => {
   const handleToggle = async (linkId: string, enabled: boolean) => {
     try {
       await editLink({ id: linkId, enabled }).unwrap();
-      toast.success(enabled ? "Havola yoqildi" : "Havola o'chirildi");
+      toast.success(enabled ? t("dashboard.links.on") : t("dashboard.links.off"));
     } catch {
-      toast.error("Havola yangilashda xatolik");
+      toast.error(t("dashboard.links.linkupdatederror"));
     }
   };
 
@@ -95,7 +97,7 @@ export const LinksTab = () => {
   };
 
   const handleDelete = (linkId: string) => {
-    if (confirm("Linkni o'chirasizmi?")) {
+    if (confirm(t("dashboard.links.remove"))) {
       deleteLink(linkId);
     }
   };
@@ -131,30 +133,34 @@ export const LinksTab = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Havolalar</h1>
-          <p className="text-muted-foreground">Havolalaringizni boshqaring va tahrirlang</p>
-        </div>
+        <h1 className="text-3xl font-bold">{t("dashboard.sidebar.links")}</h1>
 
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>
-            <Button className="gap-2 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-gren-600 hover:to-cyan-600">
+            <Button
+              onClick={() => {
+                setIsAddOpen(false);
+                setEditingLink(null);
+                setFormData({ title: "", url: "", icon: "Globe" });
+              }}
+              className="gap-2 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-gren-600 hover:to-cyan-600"
+            >
               <Plus className="w-4 h-4" />
-              Havola qo'shish
+              {t("dashboard.links.addlink")}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                {editingLink ? "Havolani tahrirlash" : "Yangi havola qo'shish"}
+                {editingLink ? t("dashboard.links.editlink") : t("dashboard.links.newlink")}
               </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="title">Sarlavha</Label>
+                <Label htmlFor="title">{t("dashboard.links.title")}</Label>
                 <Input
                   id="title"
-                  placeholder="Masalan: Mening YouTube kanalim"
+                  placeholder={t("dashboard.links.ytplace")}
                   required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -202,9 +208,9 @@ export const LinksTab = () => {
                   className="flex-1"
                 >
                   {editingLink ? (
-                    <>{editLinkLoading ? "Saqlanyapti..." : "Saqlash"}</>
+                    <>{editLinkLoading ? t("dashboard.links.saving") : t("dashboard.links.save")}</>
                   ) : (
-                    <>{createLinkLoading ? "Qo'shilyapti..." : "Qo'shish"}</>
+                    <>{createLinkLoading ? t("dashboard.links.adding") : t("dashboard.links.add")}</>
                   )}
                 </Button>
                 <Button
@@ -216,7 +222,7 @@ export const LinksTab = () => {
                   type="button"
                   variant="outline"
                 >
-                  Bekor qilish
+                  {t("dashboard.links.cancel")}
                 </Button>
               </div>
             </form>
@@ -230,9 +236,9 @@ export const LinksTab = () => {
             <div className="w-16 h-16 rounded-2xl bg-secondary mx-auto mb-4 flex items-center justify-center">
               <Link2 className="w-8 h-8 text-muted-foreground" />
             </div>
-            <h3 className="font-semibold mb-2">Hali havolalar yo'q</h3>
+            <h3 className="font-semibold mb-2">{t("dashboard.links.empty")}</h3>
             <p className="text-muted-foreground mb-4">
-              Birinchi havolangizni qo'shish uchun yuqoridagi tugmani bosing
+              {t("dashboard.links.addone")}
             </p>
           </Card>
         ) : (

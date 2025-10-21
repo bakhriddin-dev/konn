@@ -22,8 +22,8 @@ export const SortableItem = ({ link, index, handleEdit, handleToggle, handleDele
       transition={{ delay: index * 0.05 }}
     >
       <div ref={setNodeRef} style={style}>
-        <Card className="p-4 border-border hover:border-green-500/50 transition-colors">
-          <div className="flex items-center gap-4">
+        <Card className="p-3 md:p-4 border-border hover:border-green-500/50 transition-colors">
+          <div className="flex items-center gap-3 md:gap-4">
             <button
               {...attributes}
               {...listeners}
@@ -32,7 +32,7 @@ export const SortableItem = ({ link, index, handleEdit, handleToggle, handleDele
               <GripVertical className="w-5 h-5" />
             </button>
 
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center flex-shrink-0">
+            <div className="hidden md:flex w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-700 items-center justify-center flex-shrink-0">
               <IconRenderer iconName={link.icon} className="w-5 h-5 text-white" />
             </div>
 

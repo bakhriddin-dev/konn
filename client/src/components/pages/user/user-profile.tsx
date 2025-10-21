@@ -12,8 +12,6 @@ export const UserProfile = () => {
 
   const styles = themes.find((t) => t.id === user?.theme) || themes[2];
 
-  console.log(user);
-
   if (isLoading) return <Loader />;
   if (!user) return <Navigate to="/not-found" replace />;
 

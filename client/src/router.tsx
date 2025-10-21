@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { AnalyticsTab, Dashboard, Landing, LinksTab, Login, NotFound, SettingsTab, ThemesTab, UserProfile } from "@/components/pages";
+import { AnalyticsTab, Dashboard, Landing, LinksTab, Login, NotFound, Privacy, SettingsTab, Terms, ThemesTab, UserProfile } from "@/components/pages";
 import { PrivateRoute } from "./components/layouts";
 
 export const router = createBrowserRouter([
@@ -10,6 +10,14 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
+  },
+  {
+    path: "/privacy",
+    Component: Privacy,
+  },
+  {
+    path: "/terms",
+    Component: Terms,
   },
   {
     path: "/dashboard",

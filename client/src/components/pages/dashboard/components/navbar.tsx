@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { openSidebar, useGetProfileQuery } from "@/features";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useTranslation } from "@/hooks";
 import { Eye, Menu } from "lucide-react";
 import { Link } from "react-router";
 
 export const Navbar = () => {
+  const {t} = useTranslation()
   const dispatch = useAppDispatch();
   const { data } = useGetProfileQuery("");
 
@@ -29,7 +30,7 @@ export const Navbar = () => {
           <Link to={`/${data?.username}`} target="_blank">
             <Button variant="outline" size="sm" className="gap-2 !p-2 h-auto">
               <Eye className="w-4 h-4" />
-              <span className="hidden lg:inline">Profilni ko'rish</span>
+              <span className="hidden lg:inline">{t('dashboard.navbar.text')}</span>
             </Button>
           </Link>
         </div>

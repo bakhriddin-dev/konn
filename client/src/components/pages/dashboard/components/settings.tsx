@@ -1,12 +1,21 @@
 import { Loader } from "@/components/common";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { logout, useGetProfileQuery } from "@/features";
 import { useDeleteAccountMutation, useUpdateMeMutation } from "@/features/api/api-slice";
-import { LogOut } from "lucide-react";
+import { useTranslation } from "@/hooks";
+import { Language } from "@/types";
+import { cn } from "@/utils/utils";
+import { Globe, LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
@@ -16,6 +25,12 @@ export const SettingsTab = () => {
   const [updateMe, { isLoading: updateLoading }] = useUpdateMeMutation();
   const [deleteAccount, { isLoading: deleteLoading }] = useDeleteAccountMutation();
   const dispatch = useDispatch();
+  const { t, setLanguage, currentLanguage } = useTranslation();
+
+  const languages = [
+    { code: "uz" as Language, label: "O'zbekcha" },
+    { code: "en" as Language, label: "English" },
+  ];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,28 +43,28 @@ export const SettingsTab = () => {
     e.preventDefault();
 
     if (!formData.name.trim() || !formData.username.trim()) {
-      toast.error("Ism va foydalanuvchi nomi bo'sh bo'lishi mumkin emas");
+      toast.error(t("dashboard.settings.notempty"));
       return;
     }
 
     updateMe(formData);
-    toast.success("Sozlamalar saqlandi");
+    toast.success(t("dashboard.settings.saved"));
   };
 
   const handleDelete = async () => {
-    if (confirm("Hisobingizni o'chirmoqchimisiz? Bu jarayonni orqaga qaytarib bo'lmaydi!")) {
+    if (confirm(t("dashboard.settings.deletetext"))) {
       try {
         await deleteAccount("").unwrap();
         localStorage.removeItem("jwt");
         window.location.href = "/";
       } catch {
-        toast.error("Hisobni o'chirib bo'lmadi!");
+        toast.error(t("dashboard.settings.deletetexterror"));
       }
     }
   };
 
   const handleLogout = () => {
-    if (confirm("Hisobdan chiqasizmi?")) {
+    if (confirm(t("dashboard.settings.logouttext"))) {
       dispatch(logout());
     }
   };
@@ -71,12 +86,12 @@ export const SettingsTab = () => {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-4">Sozlamalar</h1>
+      <h1 className="text-3xl font-bold mb-4">{t('dashboard.sidebar.settings')}</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Profile section */}
         <Card className="p-6 border-border gap-0">
-          <h3 className="text-lg font-semibold mb-4">Profil ma'lumotlari</h3>
+          <h3 className="text-lg font-semibold mb-4">{t('dashboard.settings.profileinfo')}</h3>
 
           <div className="space-y-4">
             <div className="space-y-2">
@@ -88,7 +103,12 @@ export const SettingsTab = () => {
                   <Button type="button" variant="outline" size="sm" className="text-xs max-w-max">
                     O'zgartirish
                   </Button>
-                  <Button type="button" variant="destructive" size="sm" className="text-xs max-w-max hover:!bg-destructive/50">
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="text-xs max-w-max hover:!bg-destructive/50"
+                  >
                     O'chirish
                   </Button>
                 </div>
@@ -102,6 +122,7 @@ export const SettingsTab = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Ismingiz"
+                maxLength={50}
               />
             </div>
 
@@ -115,6 +136,7 @@ export const SettingsTab = () => {
                   onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                   placeholder="username"
                   className="flex-1"
+                  maxLength={50}
                 />
               </div>
               <p className="text-sm text-muted-foreground">
@@ -147,6 +169,35 @@ export const SettingsTab = () => {
               <Label>Email</Label>
               <Input value={user?.email} disabled />
             </div>
+          </div>
+        </Card>
+
+        {/* Language section */}
+        <Card className="p-6 border-border flex items-center flex-row justify-between">
+          <h3 className="text-lg font-semibold">Tilni o'zgartirish:</h3>
+          <div className="border max-w-max rounded-md">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-2 px-3 h-9 rounded-md bg-transparent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer">
+                <Globe className="w-4 h-4" />
+                <span className="hidden sm:inline">
+                  {languages.find((l) => l.code === currentLanguage)?.label}
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={cn(
+                      "cursor-pointer",
+                      currentLanguage === lang.code ? "bg-accent" : ""
+                    )}
+                  >
+                    {lang.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </Card>
 

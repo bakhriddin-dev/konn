@@ -1,20 +1,21 @@
 import { Loader } from "@/components/common";
 import { closeSidebar, useGetProfileQuery } from "@/features";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector, useTranslation } from "@/hooks";
 import { Link2, Palette, Settings, BarChart3, X } from "lucide-react";
 import { Link, useLocation } from "react-router";
 
 export const Sidebar = () => {
+  const {t} = useTranslation()
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui.isSidebarOpen);
   const { data, isLoading } = useGetProfileQuery("");
-  const location = useLocation()
+  const location = useLocation();
 
   const tabs = [
-    { url: "links", label: "Havolalar", icon: Link2 },
-    { url: "design", label: "Dizayn", icon: Palette },
-    { url: "analytics", label: "Tahlil", icon: BarChart3 },
-    { url: "settings", label: "Sozlamalar", icon: Settings },
+    { url: "links", label: t("dashboard.sidebar.links"), icon: Link2 },
+    { url: "design", label: t("dashboard.sidebar.design"), icon: Palette },
+    { url: "analytics", label: t("dashboard.sidebar.analytics"), icon: BarChart3 },
+    { url: "settings", label: t("dashboard.sidebar.settings"), icon: Settings },
   ];
 
   if (isLoading) {
@@ -32,7 +33,7 @@ export const Sidebar = () => {
             <div className="flex-1 min-w-0">
               <div className="font-semibold truncate text-sm">{data?.name}</div>
               <Link to="settings" className="text-muted-foreground text-xs hover:underline">
-                o'zgartirish
+                {t("dashboard.sidebar.edit")}
               </Link>
             </div>
           </div>
@@ -45,7 +46,7 @@ export const Sidebar = () => {
               to={tab.url}
               key={tab.url}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                location.pathname.split('/')[2] === tab.url
+                location.pathname.split("/")[2] === tab.url
                   ? "bg-green-500/10 text-green-400 border border-green-500/20"
                   : "hover:bg-secondary text-muted-foreground hover:text-foreground"
               }`}
@@ -79,10 +80,11 @@ export const Sidebar = () => {
         <nav className="space-y-2">
           {tabs.map((tab) => (
             <Link
+              onClick={() => dispatch(closeSidebar())}
               to={tab.url}
               key={tab.url}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                "umumiy" === tab.url
+                location.pathname.split("/")[2] === tab.url
                   ? "bg-green-500/10 text-green-400 border border-green-500/20"
                   : "hover:bg-secondary text-muted-foreground hover:text-foreground"
               }`}
