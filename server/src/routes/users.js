@@ -248,4 +248,8 @@ router.get("/me/stats", auth, async (req, res) => {
   }
 });
 
+router.get('/healthz', (req, res) => {
+  res.status(200).send('OK');
+});
+
 module.exports = router;
