@@ -133,11 +133,7 @@ export const ThemesTab = () => {
                             <div
                               className={`w-20 h-20 rounded-full ${currentTheme.accent} mx-auto mb-3 flex items-center justify-center text-2xl overflow-hidden`}
                             >
-                              {user?.avatar === "" ? (
-                                <img src={user?.avatar} />
-                              ) : (
-                                <>{user?.name[0]}</>
-                              )}
+                              {user?.avatar !== "" ? <img className="w-full h-full object-cover" src={user?.avatar} /> : <>{user?.name[0]}</>}
                             </div>
                             <h3 className={`font-semibold mb-1 ${currentTheme.text}`}>
                               {user?.name}

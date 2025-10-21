@@ -16,7 +16,7 @@ import { useTranslation } from "@/hooks";
 import { Language } from "@/types";
 import { cn } from "@/utils/utils";
 import { Globe, LogOut } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 
@@ -26,6 +26,7 @@ export const SettingsTab = () => {
   const [deleteAccount, { isLoading: deleteLoading }] = useDeleteAccountMutation();
   const dispatch = useDispatch();
   const { t, setLanguage, currentLanguage } = useTranslation();
+  const fileInputRef = useRef(null);
 
   const languages = [
     { code: "uz" as Language, label: "O'zbekcha" },
@@ -51,6 +52,25 @@ export const SettingsTab = () => {
     toast.success(t("dashboard.settings.saved"));
   };
 
+  const handleInputClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setFormData((prev) => ({
+        ...prev,
+        avatar: reader.result as string,
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleDelete = async () => {
     if (confirm(t("dashboard.settings.deletetext"))) {
       try {
@@ -67,6 +87,13 @@ export const SettingsTab = () => {
     if (confirm(t("dashboard.settings.logouttext"))) {
       dispatch(logout());
     }
+  };
+
+  const handleDeleteAvatar = () => {
+    setFormData((prev) => ({
+      ...prev,
+      avatar: "",
+    }));
   };
 
   useEffect(() => {
@@ -86,24 +113,41 @@ export const SettingsTab = () => {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-4">{t('dashboard.sidebar.settings')}</h1>
+      <h1 className="text-3xl font-bold mb-4">{t("dashboard.sidebar.settings")}</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Profile section */}
         <Card className="p-6 border-border gap-0">
-          <h3 className="text-lg font-semibold mb-4">{t('dashboard.settings.profileinfo')}</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("dashboard.settings.profileinfo")}</h3>
 
           <div className="space-y-4">
             <div className="space-y-2">
               <div className="flex flex-col gap-2">
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center text-4xl overflow-hidden">
-                  {user?.avatar === "" ? <img src={user?.avatar} /> : <>{user?.name[0]}</>}
+                  {formData?.avatar !== "" ? (
+                    <img className="w-full h-full object-cover" src={formData?.avatar} />
+                  ) : (
+                    <>{user?.name[0]}</>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button type="button" variant="outline" size="sm" className="text-xs max-w-max">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="text-xs max-w-max"
+                    onClick={handleInputClick}
+                  >
                     {t("dashboard.settings.edit")}
+                    <input
+                      onChange={handleFileInputChange}
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: "none" }}
+                    />
                   </Button>
                   <Button
+                    onClick={handleDeleteAvatar}
                     type="button"
                     variant="default"
                     size="sm"
@@ -116,7 +160,7 @@ export const SettingsTab = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="displayName">{t('dashboard.settings.dname')}</Label>
+              <Label htmlFor="displayName">{t("dashboard.settings.dname")}</Label>
               <Input
                 id="displayName"
                 value={formData.name}
@@ -127,7 +171,7 @@ export const SettingsTab = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="username">{t('dashboard.settings.username')}</Label>
+              <Label htmlFor="username">{t("dashboard.settings.username")}</Label>
               <div className="flex items-center gap-2">
                 <span className="text-muted-foreground">konn.uz/</span>
                 <Input
@@ -140,7 +184,7 @@ export const SettingsTab = () => {
                 />
               </div>
               <p className="text-sm text-muted-foreground">
-                {t('dashboard.settings.yourlink')} konn.uz/{formData.username}
+                {t("dashboard.settings.yourlink")} konn.uz/{formData.username}
               </p>
             </div>
 
@@ -155,7 +199,9 @@ export const SettingsTab = () => {
                 className="min-h-32 max-h-32 resize-none"
                 rows={3}
               />
-              <p className="text-sm text-muted-foreground">{formData.bio.length}/160 {t('dashboard.settings.character')}</p>
+              <p className="text-sm text-muted-foreground">
+                {formData.bio.length}/160 {t("dashboard.settings.character")}
+              </p>
             </div>
           </div>
         </Card>
@@ -203,7 +249,9 @@ export const SettingsTab = () => {
 
         {/* Danger zone */}
         <Card className="p-6 border-destructive/50 bg-red-500/10">
-          <h3 className="text-lg font-semiboldtext-destructive">{t("dashboard.settings.danger")}</h3>
+          <h3 className="text-lg font-semiboldtext-destructive">
+            {t("dashboard.settings.danger")}
+          </h3>
 
           <div className="space-y-4">
             <div>
@@ -211,7 +259,9 @@ export const SettingsTab = () => {
                 {t("dashboard.settings.dangerdelete")}
               </p>
               <Button onClick={handleDelete} variant="default" type="button">
-                {deleteLoading ? t("dashboard.settings.deletingaccount") : t('dashboard.settings.deleteaccount')}
+                {deleteLoading
+                  ? t("dashboard.settings.deletingaccount")
+                  : t("dashboard.settings.deleteaccount")}
               </Button>
             </div>
           </div>
@@ -222,11 +272,11 @@ export const SettingsTab = () => {
             type="submit"
             className="bg-gradient-to-r text-white from-green-700 to-cyan-700 hover:from-green-800 hover:to-cyan-800"
           >
-            {updateLoading ? t('dashboard.settings.saving') : t('dashboard.settings.save')}
+            {updateLoading ? t("dashboard.settings.saving") : t("dashboard.settings.save")}
           </Button>
           <Button onClick={handleLogout} type="button" variant="outline">
             <LogOut />
-            {t('dashboard.settings.logout')}
+            {t("dashboard.settings.logout")}
           </Button>
         </div>
       </form>

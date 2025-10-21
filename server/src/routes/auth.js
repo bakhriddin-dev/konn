@@ -26,7 +26,7 @@ router.post('/google', async (req, res) => {
 
     const email = payload.email;
     const name = payload.name || '';
-    const avatar = payload.picture || '';
+    const avatar = '';
 
     // find or create user
     let user = await User.findOne({ email });

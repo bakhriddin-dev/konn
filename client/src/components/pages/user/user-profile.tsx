@@ -33,7 +33,7 @@ export const UserProfile = () => {
           <div
             className={`w-24 h-24 rounded-full ${styles.accent} text-white font-semibold mx-auto mb-4 flex items-center justify-center text-4xl overflow-hidden shadow-md`}
           >
-            {user?.avatar === "" ? <img src={user?.avatar} /> : <>{user?.name[0]}</>}
+            {user?.avatar !== "" ? <img className="w-full h-full object-cover" src={user?.avatar} /> : <>{user?.name[0]}</>}
           </div>
           <h1 className="text-2xl font-bold mb-2">{user?.name}</h1>
           {user?.bio && <p className={`${styles.text} opacity-80 max-w-md mx-auto`}>{user.bio}</p>}

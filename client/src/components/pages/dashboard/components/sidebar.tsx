@@ -28,7 +28,7 @@ export const Sidebar = () => {
         <div className="bg-card border border-border rounded-xl p-4 mb-4">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center text-2xl overflow-hidden">
-              {data?.avatar === "" ? <img src={data?.avatar} /> : <>{data?.name[0]}</>}
+              {data?.avatar !== "" ? <img className="w-full h-full object-cover" src={data?.avatar} /> : <>{data?.name[0]}</>}
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-semibold truncate text-sm">{data?.name}</div>

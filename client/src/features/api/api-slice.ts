@@ -83,7 +83,7 @@ export const apiSlice = createApi({
     }),
     getStats: builder.query({
       query: () => ({
-        url: "users/me/stats",
+        url: "/users/me/stats",
       }),
       providesTags: ["Profile"],
     }),
@@ -101,5 +101,5 @@ export const {
   useUpdateMeMutation,
   useRecordClickMutation,
   useGetStatsQuery,
-  useDeleteAccountMutation
+  useDeleteAccountMutation,
 } = apiSlice;

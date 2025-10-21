@@ -61,7 +61,11 @@ export const Navbar = () => {
             ) : data ? (
               <Link to="/dashboard/links">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-900 flex items-center justify-center text-2xl overflow-hidden">
-                  {data?.avatar === "" ? <img src={data?.avatar} /> : <>{data?.name[0]}</>}
+                  {data?.avatar !== "" ? (
+                    <img className="w-full h-full object-cover" src={data?.avatar} />
+                  ) : (
+                    <>{data?.name[0]}</>
+                  )}
                 </div>
               </Link>
             ) : (
