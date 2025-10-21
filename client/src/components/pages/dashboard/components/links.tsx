@@ -46,7 +46,7 @@ export const LinksTab = () => {
   const [createLink, { isLoading: createLinkLoading }] = useCreateLinkMutation();
   const [editLink, { isLoading: editLinkLoading }] = useEditLinkMutation();
   const [updateLinksOrder] = useUpdateLinksOrderMutation();
-  const [deleteLink] = useDeleteLinkMutation();
+  const [deleteLink, {isLoading: deleteLoading}] = useDeleteLinkMutation();
   const { data, isLoading } = useGetProfileQuery("");
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingLink, setEditingLink] = useState<string | null>(null);
@@ -126,7 +126,7 @@ export const LinksTab = () => {
     }
   }, [data]);
 
-  if (isLoading) {
+  if (isLoading || deleteLoading) {
     return <Loader />;
   }
 

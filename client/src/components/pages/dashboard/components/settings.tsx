@@ -269,6 +269,7 @@ export const SettingsTab = () => {
 
         <div className="flex gap-3">
           <Button
+            disabled={updateLoading}
             type="submit"
             className="bg-gradient-to-r text-white from-green-700 to-cyan-700 hover:from-green-800 hover:to-cyan-800"
           >

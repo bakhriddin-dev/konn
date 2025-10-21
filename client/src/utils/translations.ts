@@ -202,9 +202,9 @@ export const translations = {
     en: "Example: My YouTube Channel",
   },
   "dashboard.links.save": { uz: "Saqlash", en: "Save" },
-  "dashboard.links.saving": { uz: "Saqlanyapti", en: "Saving" },
+  "dashboard.links.saving": { uz: "Saqlanyapti...", en: "Saving..." },
   "dashboard.links.add": { uz: "Qo'shish", en: "Add" },
-  "dashboard.links.adding": { uz: "Qo'shilyapti..", en: "Adding..." },
+  "dashboard.links.adding": { uz: "Qo'shilyapti...", en: "Adding..." },
   "dashboard.links.cancel": { uz: "Bekor qilish", en: "Cancel" },
   "dashboard.links.empty": { uz: "Hali havolalar yo'q", en: "No links yet" },
   "dashboard.links.addone": {
