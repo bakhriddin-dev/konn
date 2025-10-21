@@ -101,22 +101,22 @@ export const SettingsTab = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Button type="button" variant="outline" size="sm" className="text-xs max-w-max">
-                    O'zgartirish
+                    {t("dashboard.settings.edit")}
                   </Button>
                   <Button
                     type="button"
-                    variant="destructive"
+                    variant="default"
                     size="sm"
-                    className="text-xs max-w-max hover:!bg-destructive/50"
+                    className="text-xs max-w-max text-white !bg-red-500 hover:!bg-red-500/80"
                   >
-                    O'chirish
+                    {t("dashboard.settings.delete")}
                   </Button>
                 </div>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="displayName">Ko'rinadigan ism</Label>
+              <Label htmlFor="displayName">{t('dashboard.settings.dname')}</Label>
               <Input
                 id="displayName"
                 value={formData.name}
@@ -127,7 +127,7 @@ export const SettingsTab = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="username">Foydalanuvchi nomi</Label>
+              <Label htmlFor="username">{t('dashboard.settings.username')}</Label>
               <div className="flex items-center gap-2">
                 <span className="text-muted-foreground">konn.uz/</span>
                 <Input
@@ -140,7 +140,7 @@ export const SettingsTab = () => {
                 />
               </div>
               <p className="text-sm text-muted-foreground">
-                Sizning noyob havolangiz: konn.uz/{formData.username}
+                {t('dashboard.settings.yourlink')} konn.uz/{formData.username}
               </p>
             </div>
 
@@ -150,19 +150,19 @@ export const SettingsTab = () => {
                 id="bio"
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                placeholder="O'zingiz haqingizda qisqacha..."
+                placeholder={t("dashboard.settings.bio")}
                 maxLength={160}
                 className="min-h-32 max-h-32 resize-none"
                 rows={3}
               />
-              <p className="text-sm text-muted-foreground">{formData.bio.length}/160 belgi</p>
+              <p className="text-sm text-muted-foreground">{formData.bio.length}/160 {t('dashboard.settings.character')}</p>
             </div>
           </div>
         </Card>
 
         {/* Account section */}
         <Card className="p-6 border-border">
-          <h3 className="text-lg font-semibold">Hisob ma'lumotlari</h3>
+          <h3 className="text-lg font-semibold">{t("dashboard.settings.account")}</h3>
 
           <div className="space-y-4">
             <div className="space-y-2">
@@ -174,7 +174,7 @@ export const SettingsTab = () => {
 
         {/* Language section */}
         <Card className="p-6 border-border flex items-center flex-row justify-between">
-          <h3 className="text-lg font-semibold">Tilni o'zgartirish:</h3>
+          <h3 className="text-lg font-semibold">{t("dashboard.settings.changelang")}</h3>
           <div className="border max-w-max rounded-md">
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-2 px-3 h-9 rounded-md bg-transparent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer">
@@ -203,16 +203,15 @@ export const SettingsTab = () => {
 
         {/* Danger zone */}
         <Card className="p-6 border-destructive/50 bg-red-500/10">
-          <h3 className="text-lg font-semiboldtext-destructive">Xavfli zona</h3>
+          <h3 className="text-lg font-semiboldtext-destructive">{t("dashboard.settings.danger")}</h3>
 
           <div className="space-y-4">
             <div>
               <p className="text-sm text-muted-foreground mb-3">
-                Hisobingizni o'chirish barcha ma'lumotlaringizni butunlay o'chiradi. Bu amalni bekor
-                qilib bo'lmaydi.
+                {t("dashboard.settings.dangerdelete")}
               </p>
               <Button onClick={handleDelete} variant="default" type="button">
-                {deleteLoading ? "O'chirilayapti..." : "Hisobni o'chirish"}
+                {deleteLoading ? t("dashboard.settings.deletingaccount") : t('dashboard.settings.deleteaccount')}
               </Button>
             </div>
           </div>
@@ -223,11 +222,11 @@ export const SettingsTab = () => {
             type="submit"
             className="bg-gradient-to-r text-white from-green-700 to-cyan-700 hover:from-green-800 hover:to-cyan-800"
           >
-            {updateLoading ? "Saqlanyapti..." : "O'zgarishlarni saqlash"}
+            {updateLoading ? t('dashboard.settings.saving') : t('dashboard.settings.save')}
           </Button>
           <Button onClick={handleLogout} type="button" variant="outline">
             <LogOut />
-            Hisobdan chiqish
+            {t('dashboard.settings.logout')}
           </Button>
         </div>
       </form>
