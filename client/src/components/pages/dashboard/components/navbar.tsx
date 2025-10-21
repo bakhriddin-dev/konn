@@ -26,7 +26,7 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link to={`/${data?.username}`}>
+          <Link to={`/${data?.username}`} target="_blank">
             <Button variant="outline" size="sm" className="gap-2 !p-2 h-auto">
               <Eye className="w-4 h-4" />
               <span className="hidden lg:inline">Profilni ko'rish</span>
