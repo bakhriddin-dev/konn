@@ -60,6 +60,14 @@ export const apiSlice = createApi({
       query: (username: string) => `/users/${username}/public`,
       providesTags: ["Profile"],
     }),
+    updateMe: builder.mutation({
+      query: (data) => ({
+        url: "/users/me",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
   }),
 });
 
@@ -71,4 +79,5 @@ export const {
   useDeleteLinkMutation,
   useEditLinkMutation,
   useUpdateLinksOrderMutation,
+  useUpdateMeMutation
 } = apiSlice;

@@ -61,6 +61,10 @@ router.put("/me", auth, async (req, res) => {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
+    Object.keys(updates).forEach(
+      (key) => updates[key] === undefined && delete updates[key]
+    );
+
     // If changing username, ensure uniqueness
     if (updates.username && updates.username !== user.username) {
       const exists = await User.findOne({ username: updates.username });
