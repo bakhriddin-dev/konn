@@ -4,6 +4,8 @@ import { Navbar } from "./components/navbar";
 import { Toaster } from "sonner";
 
 export const Dashboard = () => {
+  const isMobile = window.innerWidth <= 768;
+  
   return (
     <div className="dark min-h-screen bg-background">
       <div className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -18,7 +20,7 @@ export const Dashboard = () => {
             <Outlet />
           </main>
 
-          <Toaster />
+          <Toaster position={isMobile ? "top-right" : "bottom-right"} />
         </div>
       </div>
     </div>

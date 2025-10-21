@@ -86,7 +86,7 @@ export const AnalyticsTab = () => {
                     <stat.icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <div className="text-3xl font-bold mb-1">{stat.value}</div>
+                <div className="text-3xl font-bold mb-1 truncate">{stat.value}</div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
 
                 <div

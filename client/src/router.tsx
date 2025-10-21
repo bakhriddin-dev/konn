@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { AnalyticsTab, Dashboard, Landing, LinksTab, Login, NotFound, ThemesTab, UserProfile } from "@/components/pages";
+import { AnalyticsTab, Dashboard, Landing, LinksTab, Login, NotFound, SettingsTab, ThemesTab, UserProfile } from "@/components/pages";
 import { PrivateRoute } from "./components/layouts";
 
 export const router = createBrowserRouter([
@@ -30,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "analytics",
         Component: AnalyticsTab
+      },
+      {
+        path: "settings",
+        Component: SettingsTab
       }
     ],
   },

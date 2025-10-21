@@ -68,6 +68,12 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Profile"],
     }),
+    deleteAccount: builder.mutation({
+      query: () => ({
+        url: "/users/me",
+        method: "DELETE",
+      }),
+    }),
     recordClick: builder.mutation({
       query: ({ username, linkId }) => ({
         url: `/users/${username}/click`,
@@ -94,5 +100,6 @@ export const {
   useUpdateLinksOrderMutation,
   useUpdateMeMutation,
   useRecordClickMutation,
-  useGetStatsQuery
+  useGetStatsQuery,
+  useDeleteAccountMutation
 } = apiSlice;

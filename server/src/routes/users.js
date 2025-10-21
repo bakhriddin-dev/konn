@@ -47,6 +47,22 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
+// --- Protected: delete current user account
+// DELETE /api/users/me
+router.delete("/me", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    await User.findByIdAndDelete(req.user.id);
+
+    res.json({ message: "Account deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // --- Protected: update profile (name, bio, username, theme, avatar)
 // PUT /api/users/me
 router.put("/me", auth, async (req, res) => {

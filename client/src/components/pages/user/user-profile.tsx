@@ -12,6 +12,8 @@ export const UserProfile = () => {
 
   const styles = themes.find((t) => t.id === user?.theme) || themes[2];
 
+  console.log(user);
+
   if (isLoading) return <Loader />;
   if (!user) return <Navigate to="/not-found" replace />;
 
@@ -30,13 +32,13 @@ export const UserProfile = () => {
           transition={{ duration: 0.4 }}
           className="text-center mb-8"
         >
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mx-auto mb-4 flex items-center justify-center text-4xl overflow-hidden shadow-md">
-            <img src={user?.avatar} alt={user?.name || "User"} />
+          <div
+            className={`w-24 h-24 rounded-full ${styles.accent} text-white font-semibold mx-auto mb-4 flex items-center justify-center text-4xl overflow-hidden shadow-md`}
+          >
+            {user?.avatar === "" ? <img src={user?.avatar} /> : <>{user?.name[0]}</>}
           </div>
           <h1 className="text-2xl font-bold mb-2">{user?.name}</h1>
-          {user?.bio && (
-            <p className={`${styles.text} opacity-80 max-w-md mx-auto`}>{user.bio}</p>
-          )}
+          {user?.bio && <p className={`${styles.text} opacity-80 max-w-md mx-auto`}>{user.bio}</p>}
         </motion.div>
 
         {/* Links */}
@@ -45,7 +47,7 @@ export const UserProfile = () => {
             <a
               onClick={(e) => {
                 e.preventDefault();
-                recordClick({username: user?.username, linkId: link.id})
+                recordClick({ username: user?.username, linkId: link.id });
                 window.open(link.url, "_blank", "noopener,noreferrer");
               }}
               key={link.id}
@@ -75,10 +77,11 @@ export const UserProfile = () => {
         </div>
 
         {/* Footer */}
-        <div
-          className={`text-xs text-center ${styles.text} py-4 opacity-70 mt-auto`}
-        >
-          © 2025 <a href="https://konn.uz" className="hover:underline">konn.uz</a>
+        <div className={`text-xs text-center ${styles.text} py-4 opacity-70 mt-auto`}>
+          © 2025{" "}
+          <a href="https://konn.uz" className="hover:underline">
+            konn.uz
+          </a>
         </div>
       </div>
     </motion.div>
