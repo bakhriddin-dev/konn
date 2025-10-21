@@ -1,6 +1,6 @@
 import { Loader } from "@/components/common";
 import { themes, ThemeType } from "@/constants/themes";
-import { useGetPublicProfileQuery } from "@/features/api/api-slice";
+import { useGetPublicProfileQuery, useRecordClickMutation } from "@/features/api/api-slice";
 import { Navigate, useParams } from "react-router";
 import { motion } from "framer-motion";
 import { IconRenderer } from "@/components/common/icon-renderer/icon-renderer";
@@ -8,6 +8,7 @@ import { IconRenderer } from "@/components/common/icon-renderer/icon-renderer";
 export const UserProfile = () => {
   const { username } = useParams<{ username: string }>();
   const { data: user, isLoading } = useGetPublicProfileQuery(username);
+  const [recordClick] = useRecordClickMutation();
 
   const styles = themes.find((t) => t.id === user?.theme) || themes[2];
 
@@ -39,14 +40,16 @@ export const UserProfile = () => {
         </motion.div>
 
         {/* Links */}
-        <div className="space-y-4 flex-grow">
+        <div className="space-y-2 md:space-y-3 flex-grow">
           {user?.links?.map((link) => (
             <a
+              onClick={(e) => {
+                e.preventDefault();
+                recordClick({username: user?.username, linkId: link.id})
+                window.open(link.url, "_blank", "noopener,noreferrer");
+              }}
               key={link.id}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`block p-4 rounded-xl border ${styles.linkBg} ${styles.linkBorder} ${styles.text} transition-all duration-200 hover:scale-[1.01] hover:${styles.linkBorder}/40 hover:shadow-lg`}
+              className={`cursor-pointer block p-4 rounded-xl border ${styles.linkBg} ${styles.linkBorder} ${styles.text} transition-all duration-200 hover:scale-[1.01] hover:${styles.linkBorder}/40 hover:shadow-lg`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">

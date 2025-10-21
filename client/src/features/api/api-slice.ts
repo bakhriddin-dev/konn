@@ -68,6 +68,19 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Profile"],
     }),
+    recordClick: builder.mutation({
+      query: ({ username, linkId }) => ({
+        url: `/users/${username}/click`,
+        method: "POST",
+        body: { linkId },
+      }),
+    }),
+    getStats: builder.query({
+      query: () => ({
+        url: "users/me/stats",
+      }),
+      providesTags: ["Profile"],
+    }),
   }),
 });
 
@@ -79,5 +92,7 @@ export const {
   useDeleteLinkMutation,
   useEditLinkMutation,
   useUpdateLinksOrderMutation,
-  useUpdateMeMutation
+  useUpdateMeMutation,
+  useRecordClickMutation,
+  useGetStatsQuery
 } = apiSlice;

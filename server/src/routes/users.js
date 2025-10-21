@@ -14,7 +14,7 @@ router.get("/:username/public", async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     // increment views
-    user.views = (user.views || 0) + 1;
+    user.incrementView();
     user.recalculateMetrics();
     await user.save();
 
@@ -189,6 +189,7 @@ router.post("/:username/click", async (req, res) => {
     if (!link) return res.status(404).json({ message: "Link not found" });
 
     link.clicks = (link.clicks || 0) + 1;
+    user.incrementClick();
     user.recalculateMetrics();
     await user.save();
 
@@ -197,6 +198,34 @@ router.post("/:username/click", async (req, res) => {
       totalClicks: user.totalClicks,
       clickRetention: user.clickRetention,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// stats for last 7 days
+router.get("/me/stats", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const now = new Date();
+    const last7Days = Array.from({ length: 7 }).map((_, i) => {
+      const d = new Date();
+      d.setDate(now.getDate() - (6 - i));
+      d.setHours(0, 0, 0, 0);
+      const stat = user.dailyStats.find(
+        (s) => s.date.getTime() === d.getTime()
+      );
+      return {
+        name: d.toLocaleDateString("en-EN", { day: "numeric", month: "short" }),
+        views: stat?.views || 0,
+        clicks: stat?.clicks || 0,
+      };
+    });
+
+    res.json(last7Days);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

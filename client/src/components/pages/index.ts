@@ -5,5 +5,6 @@ import { LinksTab } from "./dashboard/components/links";
 import { NotFound } from "./notfound/notfound";
 import { UserProfile } from "./user/user-profile";
 import { ThemesTab } from "./dashboard/components/themes";
+import {AnalyticsTab} from './dashboard/components/analytics'
 
-export { Landing, Login, Dashboard, LinksTab, NotFound, UserProfile, ThemesTab };
+export { Landing, Login, Dashboard, LinksTab, NotFound, UserProfile, ThemesTab, AnalyticsTab };

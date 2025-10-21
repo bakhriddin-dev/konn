@@ -1,3 +1,5 @@
+import { useGetProfileQuery } from "@/features";
+import { useGetStatsQuery } from "@/features/api/api-slice";
 import { useTranslation } from "@/hooks/use-translation";
 import { motion } from "framer-motion";
 import { TrendingUp, Eye, MousePointerClick, BarChart3 } from "lucide-react";
@@ -11,78 +13,62 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export function Analytics() {
+export const AnalyticsTab = () => {
   const { t } = useTranslation();
+  const { data } = useGetProfileQuery("");
+  const { data: chartData } = useGetStatsQuery("");
 
-  const chartData = [
-    { name: "Mon", views: 400, clicks: 240 },
-    { name: "Tue", views: 300, clicks: 139 },
-    { name: "Wed", views: 520, clicks: 380 },
-    { name: "Thu", views: 278, clicks: 390 },
-    { name: "Fri", views: 489, clicks: 480 },
-    { name: "Sat", views: 639, clicks: 500 },
-    { name: "Sun", views: 548, clicks: 410 },
-  ];
+  const getTopLink = (links) => {
+    if (!Array.isArray(links) || links.length === 0) return null;
+    return links.reduce((best, cur) => ((cur.clicks ?? 0) > (best.clicks ?? 0) ? cur : best));
+  };
 
-  const linkStats = [
-    { name: t("analytics.youtube"), clicks: 1234, percentage: 35 },
-    { name: t("analytics.instagram"), clicks: 987, percentage: 28 },
-    { name: t("analytics.site"), clicks: 756, percentage: 21 },
-    { name: "Twitter", clicks: 567, percentage: 16 },
-  ];
+  const getTopLinks = (links, topN = 4) => {
+    if (!Array.isArray(links) || links.length === 0) return [];
+
+    const totalClicks = links.reduce((sum, link) => sum + (link.clicks ?? 0), 0);
+
+    const withPercentage = links.map((link) => ({
+      ...link,
+      percentage: totalClicks > 0 ? ((link.clicks ?? 0) / totalClicks) * 100 : 0,
+    }));
+
+    return withPercentage.sort((a, b) => b.clicks - a.clicks).slice(0, topN);
+  };
 
   const stats = [
     {
       label: t("analytics.allclicks"),
-      value: "12.5K",
-      change: "+12.5%",
+      value: data?.totalClicks,
       icon: MousePointerClick,
       color: "from-blue-500 to-cyan-500",
     },
     {
       label: t("analytics.allviews"),
-      value: "24.8K",
-      change: "+18.2%",
+      value: data?.views,
       icon: Eye,
       color: "from-purple-500 to-pink-500",
     },
     {
       label: t("analytics.activepercent"),
-      value: "68.4%",
-      change: "+5.7%",
+      value: `${data?.clickRetention.toFixed(2)}%`,
       icon: TrendingUp,
       color: "from-green-500 to-emerald-500",
     },
     {
       label: t("analytics.toplink"),
-      value: "YouTube",
-      change: `1.2K ${t("analytics.clicks")}`,
+      value: getTopLink(data?.links)?.title,
       icon: BarChart3,
       color: "from-orange-500 to-red-500",
     },
   ];
 
   return (
-    <section id="analitika" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent"></div>
-
+    <section id="analitika" className="relative overflow-hidden">
+      <h1 className="text-3xl font-bold mb-4">Tahlil</h1>
       <div className="container mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16 space-y-4"
-        >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">{t("analytics.title")}</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {t("analytics.subtitle")}
-          </p>
-        </motion.div>
-
         {/* Stats Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -99,7 +85,6 @@ export function Analytics() {
                   >
                     <stat.icon className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-green-500 text-sm font-medium">{stat.change}</div>
                 </div>
                 <div className="text-3xl font-bold mb-1">{stat.value}</div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
@@ -180,7 +165,7 @@ export function Analytics() {
               <p className="text-sm text-muted-foreground">{t("analytics.clickratings")}</p>
             </div>
             <div className="space-y-4">
-              {linkStats.map((link, index) => (
+              {getTopLinks(data?.links).map((link, index) => (
                 <motion.div
                   key={index}
                   initial={{ x: 20, opacity: 0 }}
@@ -190,15 +175,15 @@ export function Analytics() {
                   className="group"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium">{link.name}</span>
+                    <span className="font-medium">{link.title}</span>
                     <span className="text-sm text-muted-foreground">
-                      {link.clicks} {t("analytics.clicks")}
+                      {link.clicks} ta {t("analytics.clicks")}
                     </span>
                   </div>
                   <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
-                      whileInView={{ width: `${link.percentage}%` }}
+                      whileInView={{ width: `${link?.percentage}%` }}
                       transition={{ duration: 1, delay: index * 0.1 }}
                       viewport={{ once: true }}
                       className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
@@ -212,4 +197,4 @@ export function Analytics() {
       </div>
     </section>
   );
-}
+};

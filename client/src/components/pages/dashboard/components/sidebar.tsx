@@ -2,12 +2,13 @@ import { Loader } from "@/components/common";
 import { closeSidebar, useGetProfileQuery } from "@/features";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Link2, Palette, Settings, BarChart3, X } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui.isSidebarOpen);
   const { data, isLoading } = useGetProfileQuery("");
+  const location = useLocation()
 
   const tabs = [
     { url: "links", label: "Havolalar", icon: Link2 },
@@ -44,7 +45,7 @@ export const Sidebar = () => {
               to={tab.url}
               key={tab.url}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                "havolalar" === tab.url
+                location.pathname.split('/')[2] === tab.url
                   ? "bg-green-500/10 text-green-400 border border-green-500/20"
                   : "hover:bg-secondary text-muted-foreground hover:text-foreground"
               }`}
