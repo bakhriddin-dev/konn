@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/use-translation";
 import { motion } from "framer-motion";
 import { ExternalLink, Eye } from "lucide-react";
+import { Link } from "react-router";
 
 export function Showcase() {
   const { t } = useTranslation();
@@ -13,6 +14,7 @@ export function Showcase() {
       avatar: "👗",
       gradient: "from-pink-500 via-rose-500 to-red-500",
       views: "334",
+      link: "1f5d3d9a-2a14-4a89-bc4c-8d9a129eb0df",
     },
     {
       name: "Rustam Bek",
@@ -21,6 +23,7 @@ export function Showcase() {
       avatar: "💻",
       gradient: "from-blue-500 via-indigo-500 to-cyan-500",
       views: "678",
+      link: "b28f99d7-9a62-44c3-81a9-32fd134a2a8b",
     },
     {
       name: "Anastasia Volkova",
@@ -29,6 +32,7 @@ export function Showcase() {
       avatar: "🍰",
       gradient: "from-orange-500 via-amber-500 to-yellow-500",
       views: "2208",
+      link: "67a02cb8-1b9b-471b-a019-20bdb9e6f617",
     },
     {
       name: "Javohir Fit",
@@ -37,6 +41,7 @@ export function Showcase() {
       avatar: "🏋️‍♂️",
       gradient: "from-green-500 via-emerald-500 to-teal-500",
       views: "1145",
+      link: "f41c4cf9-d7ff-4f6e-b7ac-4e0970ad1fd8",
     },
     {
       name: "Elena Petrova",
@@ -45,6 +50,7 @@ export function Showcase() {
       avatar: "🎶",
       gradient: "from-purple-500 via-violet-500 to-indigo-500",
       views: "601",
+      link: "4a331d2b-6f7f-43de-bd8c-726b40e55f35",
     },
     {
       name: "Azizbek Nur",
@@ -53,6 +59,7 @@ export function Showcase() {
       avatar: "📷",
       gradient: "from-cyan-500 via-blue-500 to-indigo-500",
       views: "214",
+      link: "aa64eac2-9b84-4c72-8f20-9207f8456a9a",
     },
   ];
 
@@ -120,13 +127,15 @@ export function Showcase() {
                     ))}
                   </div>
 
-                  <Button
-                    variant="outline"
-                    className="w-full group-hover:bg-gradient-to-r group-hover:from-green-500 group-cyan:to-pink-500 group-hover:border-transparent group-hover:text-white transition-all"
-                  >
-                    {t("showcase.button")}
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
+                  <Link to={`https://konn.uz/${profile.link}`} target="_blank">
+                    <Button
+                      variant="outline"
+                      className="w-full group-hover:bg-gradient-to-r group-hover:from-green-500 group-cyan:to-pink-500 group-hover:border-transparent group-hover:text-white transition-all"
+                    >
+                      {t("showcase.button")}
+                      <ExternalLink className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
                 </div>
 
                 {/* Hover glow */}

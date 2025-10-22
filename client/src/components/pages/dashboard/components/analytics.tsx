@@ -45,7 +45,7 @@ export const AnalyticsTab = () => {
     },
     {
       label: t("analytics.allviews"),
-      value: data?.views,
+      value: data?.views > 0 ? data.views - 1 : 0,
       icon: Eye,
       color: "from-purple-500 to-pink-500",
     },
