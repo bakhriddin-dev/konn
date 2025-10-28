@@ -1,6 +1,4 @@
 import { useTranslation } from "@/hooks/use-translation";
-import { Github } from "lucide-react";
-import { motion } from "framer-motion";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -16,20 +14,10 @@ export function Footer() {
     {
       title: t("footer.privacy"),
       links: [
-        { label: t("footer.privacy1"), href: "#" },
-        { label: t("footer.privacy2"), href: "#" },
+        { label: t("footer.privacy1"), href: "/privacy" },
+        { label: t("footer.privacy2"), href: "/terms" },
       ],
-    },
-    {
-      title: t("footer.company"),
-      links: [
-        { label: t("footer.company1"), href: "https://github.com/bakhriddin-dev/konn/issues" },
-      ],
-    },
-  ];
-
-  const socialLinks = [
-    { icon: Github, href: "https://github.com/bakhriddin-dev/konn", label: "Github" },
+    }
   ];
 
   return (
@@ -45,20 +33,6 @@ export function Footer() {
               <span className="text-xl font-bold">Konn.uz</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm">{t("footer.title")}</p>
-            <div className="flex items-center gap-3">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  aria-label={social.label}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-lg bg-secondary border border-border hover:border-green-500/50 flex items-center justify-center transition-colors"
-                >
-                  <social.icon className="w-5 h-5" />
-                </motion.a>
-              ))}
-            </div>
           </div>
 
           {/* Links */}

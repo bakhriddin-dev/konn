@@ -19,5 +19,5 @@ export const GoogleLoginButton = () => {
     }
   };
 
-  return <GoogleLogin onSuccess={login} theme="filled_black" size="medium" locale="en" />;
+  return <GoogleLogin onSuccess={login} theme="filled_black" size="medium" />;
 };
