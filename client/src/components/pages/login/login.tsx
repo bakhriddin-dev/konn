@@ -25,7 +25,6 @@ export const Login = () => {
 
           <div className="bg-card border border-border rounded-2xl p-4 md:p-8 shadow-xl flex flex-col items-center gap-4 text-center">
             <h2 className="text-xl font-semibold">{t("login.login")}</h2>
-            <p className="text-muted-foreground text-sm">{t("login.google")}</p>
 
             <GoogleLoginButton />
           </div>
