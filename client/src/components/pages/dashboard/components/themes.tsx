@@ -160,7 +160,7 @@ export const ThemesTab = () => {
                         </div>
 
                         <div className="text-xs text-center text-gray-400 py-3 opacity-70">
-                          © 2025 konn.uz
+                          © 2025 konn
                         </div>
                       </motion.div>
                     </AnimatePresence>

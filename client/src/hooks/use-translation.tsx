@@ -3,7 +3,7 @@ import { Language } from "@/types";
 import { useState } from "react";
 
 export const useTranslation = () => {
-  const [currentLanguage] = useState(localStorage.getItem("lang") || "uz");
+  const [currentLanguage] = useState(localStorage.getItem("lang") || "ru");
 
   const t = (key: string) => translations[key]?.[currentLanguage] || key;
 

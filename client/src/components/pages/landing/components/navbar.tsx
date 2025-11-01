@@ -14,10 +14,10 @@ import { useGetProfileQuery } from "@/features";
 
 export const Navbar = () => {
   const { t, setLanguage, currentLanguage } = useTranslation();
-  const { data, isLoading } = useGetProfileQuery("");
+  const { data } = useGetProfileQuery("");
 
   const languages = [
-    { code: "uz" as Language, label: "O'zbekcha" },
+    { code: "ru" as Language, label: "Русский" },
     { code: "en" as Language, label: "English" },
   ];
 
@@ -29,7 +29,7 @@ export const Navbar = () => {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br flex items-center justify-center">
               <img src="/icons/logo.png" alt="Logo" className="rounded-md" />
             </div>
-            <span className="text-xl font-bold">Konn.uz</span>
+            <span className="text-xl font-bold">Konn</span>
           </div>
 
           <div className="flex items-center gap-2">

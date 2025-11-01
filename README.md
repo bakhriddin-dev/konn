@@ -1,38 +1,38 @@
-# Konn: Single page for all your links!
+# Konn: Одна страница для всех ваших ссылок!
 
-Konn is a lightweight open-source Linktree-style app: one public page with all your links. Built for simplicity, fast UX and easy deployment.
+Konn — это лёгкое open-source приложение в стиле Linktree: одна публичная страница со всеми вашими ссылками. Создано для простоты, быстрой работы и лёгкого развёртывания.
 
-## Key features
-- Google OAuth sign-in  
-- Create / edit / reorder links  
-- Shareable profile pages (e.g. `konn.uz/username`)  
-- Responsive UI with smooth animations
+## Основные функции
+- Вход через Google OAuth  
+- Создание / редактирование / изменение порядка ссылок  
+- Доступные для общего просмотра страницы профиля (например, `konn.uz/username`)  
+- Адаптивный интерфейс с плавной анимацией
 
-## Tech stack
+## Технологии
 - **Frontend:** React, Redux Toolkit, RTK Query, Tailwind, shadcn, Framer Motion  
-- **Backend:** Node.js + Express, **MongoDB** (database)
+- **Backend:** Node.js + Express, **MongoDB** (база данных)
 
-## Quick start (dev)
-1. Clone repo:
+## Быстрый старт (разработка)
+1. Клонируйте репозиторий:
 ```bash
 git clone https://github.com/bakhriddin-dev/konn.git
 ```
-2. Run backend:
+2. Запустите backend:
 ```bash
 cd konn/client
 npm install
 npm run dev
 ```
-3. Run frontend:
+3. Запустите frontend:
 ```bash
 cd konn/server
 npm install
 npm run dev
 ```
 
-Frontend usually at `http://localhost:5173`, backend at `http://localhost:5000`.
+Frontend обычно доступен по адресу `http://localhost:5173`, backend — по `http://localhost:5000`.
 
-## Required env (examples)
+## Необходимые переменные окружения (примеры)
 
 **backend/.env**
 ```
@@ -48,11 +48,11 @@ VITE_API_URL=http://localhost:5000
 VITE_GOOGLE_CLIENT_ID=your_google_client_id
 ```
 
-## Minimal API (examples)
-- `GET /api/users/:username/public` — public profile with links  
-- `POST /api/auth/google` — Google OAuth exchange  
-- Protected (auth):
-  - `POST /api/me/links` — create link  
-  - `PUT /api/me/links/:id` — update link  
-  - `DELETE /api/me/links/:id` — delete link  
-  - `PUT /api/me/links/order` — reorder links
+## Минимальный API (примеры)
+- `GET /api/users/:username/public` — публичный профиль с ссылками  
+- `POST /api/auth/google` — обмен через Google OAuth  
+- Защищённые (требуется авторизация):
+  - `POST /api/me/links` — создание ссылки  
+  - `PUT /api/me/links/:id` — обновление ссылки  
+  - `DELETE /api/me/links/:id` — удаление ссылки  
+  - `PUT /api/me/links/order` — изменение порядка ссылок

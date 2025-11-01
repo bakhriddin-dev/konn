@@ -30,7 +30,7 @@ export function Footer() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br flex items-center justify-center">
                 <img src="/icons/logo.png" alt="Logo" className="rounded-md" />
               </div>
-              <span className="text-xl font-bold">Konn.uz</span>
+              <span className="text-xl font-bold">Konn</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm">{t("footer.title")}</p>
           </div>
